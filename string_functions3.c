@@ -2,7 +2,7 @@
 
 /**
  **_stringcpy - copy the string
- *@destination: duplicate the destination string 
+ *@destination: duplicate the destination string
  *@source: the string source
  *@num: the amount of the char to copy
  *Return: the str concatenated
@@ -35,7 +35,7 @@ char *_stringcpy(char *destination, char *source, int num)
  *@destination: the 1st string
  *@source: the 2nd string
  *@num: the amount of bytes to be used
- *Return: the sting concatenated 
+ *Return: the sting concatenated
  */
 char *_stringcat(char *destination, char *source, int num)
 {

@@ -3,7 +3,7 @@
 /**
  * getEnvironment - Returns a copy of the environment strings array
  * @shellInfo: Struct containing potential arguments
- * 
+ *
  * Return: The environment strings array
  */
 char **getEnvironment(shellInfo_t *shellInfo)
@@ -20,7 +20,7 @@ char **getEnvironment(shellInfo_t *shellInfo)
 /**
  * unsetEnvironmentVar - Remove an environment variable
  * @shellInfo: Struct containing potential arguments
- * 
+ *
  * @varName: The name of the environment variable to remove
  * Return: 1 if the variable is removed, 0 otherwise
  */
@@ -50,7 +50,8 @@ int unsetEnvironmentVar(shellInfo_t *shellInfo, char *varName)
 }
 
 /**
- * setEnvironmentVar - Initialize a new environment variable or modify an existing one
+ * setEnvironmentVar - Initialize a new environment variable
+ *                    or modify an existing one
  * @shellInfo: Struct containing potential arguments
  * @varName: The name of the environment variable
  * @value: The value to set for the environment variable

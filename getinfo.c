@@ -14,7 +14,7 @@ void ClearInformation(info_t *information)
 
 /**
  * SetInformation - initialize info_t structure
- * @info: structure the address
+ * @information: structure the address
  * @av: argument vector
  */
 void SetInformation(info_t *information, char **av)

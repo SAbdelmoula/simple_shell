@@ -42,7 +42,7 @@ char *DuplicateShellchars(char *pathstring, int start, int stop)
 
 /**
  * FindStrpath- observe this command in the path of string
- * @information: structure information 
+ * @information: structure information
  * @pathstring: the path string
  * @command: the cmd to observe
  * Return: full path of command if found or NULL

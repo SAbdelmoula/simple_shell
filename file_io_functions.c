@@ -13,7 +13,8 @@ char *GetFile_History(info_t *information)
 	currentDir = _getenv(information, "HOME=");
 	if (!currentDir)
 		return (NULL);
-	buffer = malloc(sizeof(char) * (_strlen(currentDir) + _strlen(HIST_FILE) + 2));
+	buffer = malloc(sizeof(char) * (_strlen(currentDir)
+				+ _strlen(HIST_FILE) + 2));
 	if (!buffer)
 		return (NULL);
 	buf[0] = 0;
@@ -120,11 +121,11 @@ int BuildHistory_List(info_t *information, char *buffer, int Linecount)
 }
 
 /**
- * Re-numberHistory - renumber the history of the linked-list after changes
+ * RenumberHistory - renumber the history of the linked-list after changes
  * @information: struct the containing potential arguments
  * Return: new histcount
  */
-int Re-numberHistory(info_t *information)
+int RenumberHistory(info_t *information)
 {
 	list_t *node = information->history;
 	int n = 0;

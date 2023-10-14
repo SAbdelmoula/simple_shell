@@ -1,7 +1,8 @@
 #include "shell.h"
 
 /**
- * stringwords - makes word divisions in a string. It ignores repeated delimiters.
+ * stringwords - makes word divisions in a string,
+ *             It ignores repeated delimiters
  * @string: string input
  * @delimeter: string delimeter
  * Return: pointer an array of string, or NULL on failure
@@ -17,7 +18,8 @@ char *stringwords(char *string, char *delimeter)
 	if (!delimeter)
 		delimeter = " ";
 	for (n = 0; string[n] != '\0'; n++)
-		if (!is_delim(string[n], delimeter) && (is_delim(string[n + 1], delimeter) || !string[n + 1]))
+		if (!is_delim(string[n], delimeter) && (is_delim(string[n + 1],
+					  delimeter) || !string[n + 1]))
 			wordsnumber++;
 
 	if (wordsnumber == 0)
@@ -75,7 +77,8 @@ char *string2w(char *string, char delimeter)
 		while (string[n] == delimeter && string[n] != delimeter)
 			n++;
 		z = 0;
-		while (string[n + z] != delimeter && string[n + z] && string[n + z] != delimeter)
+		while (string[n + z] != delimeter && string[n + z] &&
+			      string[n + z] != delimeter)
 			z++;
 		r[a] = malloc((z + 1) * sizeof(char));
 		if (!r[a])

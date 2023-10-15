@@ -56,8 +56,8 @@ int setAlias(info_t *info, char *aliasString)
 	if (!*++equals)
 		return (unsetAlias(info, aliasString));
 
-	unset_alias(info, aliasString);
-	return (add_node_end(&(info->alias), aliasString, 0) == NULL);
+	unsetAlias(info, aliasString);
+	return (AddNode_End(&(info->alias), aliasString, 0) == NULL);
 }
 
 /**

@@ -25,7 +25,7 @@ size_t ListLen(const list_t *head)
 char **Listtostrings(list_t *head)
 {
 	list_t *node = head;
-	size_t n = list_len(head), a;
+	size_t n = ListLen(head), a;
 	char **structures;
 	char *structure;
 
@@ -64,7 +64,7 @@ size_t PrintList(const list_t *head)
 
 	while (head)
 	{
-		_puts(convert_number(head->num, 10, 0));
+		_puts(ConvertShellnumber(head->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		_puts(head->structure ? head->structure : "(nil)");

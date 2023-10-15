@@ -8,7 +8,7 @@
  */
 int displayHistory(info_t *info)
 {
-	print_list(info->history);
+	PrintList(info->history);
 	return (0);
 }
 
@@ -24,15 +24,15 @@ int unsetAlias(info_t *info, char *aliasString)
 	char *equals, tempChar;
 	int ret;
 
-	equals = _strchr(aliasString, '=');
+	equals = strchr(aliasString, '=');
 	if (!equals)
 		return (1);
 
 	tempChar = *equals;
 	*equals = '\0';
 
-	ret = delete_node_at_index(&(info->alias),
-			get_node_index(info->alias, nodeStartsWith(info->alias, aliasString, -1)));
+	ret = DeleteNodeIndex(&(info->alias),
+			GetNodeIndex(info->alias, Nodestartswith(info->alias, aliasString, -1)));
 
 	*equals = tempChar;
 	return (ret);
@@ -49,14 +49,14 @@ int setAlias(info_t *info, char *aliasString)
 {
 	char *equals;
 
-	equals = _strchr(aliasString, '=');
+	equals = strchr(aliasString, '=');
 	if (!equals)
 		return (1);
 
 	if (!*++equals)
 		return (unsetAlias(info, aliasString));
 
-	unsetAlias(info, aliasString);
+	unset_alias(info, aliasString);
 	return (add_node_end(&(info->alias), aliasString, 0) == NULL);
 }
 
@@ -102,7 +102,7 @@ int manageAlias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			printAlias(node);
+			print_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -112,9 +112,9 @@ int manageAlias(info_t *info)
 	{
 		equals = _strchr(info->argv[n], '=');
 		if (equals)
-			setAlias(info, info->argv[n]);
+			set_alias(info, info->argv[n]);
 		else
-			printAlias(nodeStartsWith(info->alias, info->argv[n], '='));
+			print_alias(node_starts_with(info->alias, info->argv[n], '='));
 	}
 
 	return (0);

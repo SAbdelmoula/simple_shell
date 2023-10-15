@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- *_putsInput - print the string input
+ *_eputsInput - print the string input
  * @structure: print the string
  * Return: Nothing
  */
-void _putsInput(char *structure)
+void _eputsInput(char *structure)
 {
 	int n = 0;
 
@@ -13,17 +13,17 @@ void _putsInput(char *structure)
 		return;
 	while (structure[n] != '\0')
 	{
-		Eputchar(structure[n]);
+		_eputchar(structure[n]);
 		n++;
 	}
 }
 
 /**
- * EputChar - write the character c to the stderr
+ * _eputChars - write the character c to the stderr
  * @c: print the character
  * Return: On success 1
  */
-int EputChar(char c)
+int _eputChars(char c)
 {
 	static int n;
 	static char buffer[WRITE_BUF_SIZE];
@@ -39,12 +39,12 @@ int EputChar(char c)
 }
 
 /**
- * Putfd - write the character c to the given fd
+ * _putfd - Fill in the provided fd with the char "c"
  * @c: print the char
- * @fd: file descriptor to write to
+ * @fd: written file descriptor
  * Return: On success 1
  */
-int Putfd(char c, int fd)
+int _putfd(char c, int fd)
 {
 	static int n;
 	static char buffer[WRITE_BUF_SIZE];
@@ -60,12 +60,12 @@ int Putfd(char c, int fd)
 }
 
 /**
- * Putsfd - print the input string
+ * _putsfd - pull up the string entered
  * @structure: print the string
- * @fd: the file descriptor to write to
- * Return: the number of the chars put
+ * @fd: written file descriptor
+ * Return: the number of the chars entered
  */
-int Putsfd(char *structure, int fd)
+int _putsfd(char *structure, int fd)
 {
 	int n = 0;
 

@@ -56,7 +56,7 @@ char *FindStrpath(info_t *information, char *pathstring, char *command)
 		return (NULL);
 	if ((_strlen(command) > 2) && starts_with(command, "./"))
 	{
-		if (is_command(information, command))
+		if (IsShellcommand(information, command))
 			return (command);
 	}
 	while (1)

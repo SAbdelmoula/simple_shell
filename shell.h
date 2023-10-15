@@ -203,9 +203,9 @@ int unsetEnvironmentVariable(info_t *info);
 int populateEnvironmentList(info_t *info);
 
 /* shell_envir2.c */
-char **getEnvironment(shellInfo_t *shellInfo);
-int unsetEnvironmentVar(shellInfo_t *shellInfo, char *varName);
-int setEnvironmentVar(shellInfo_t *shellInfo, char *varName, char *value);
+char **getEnvironment(info_t *shellInfo);
+int unsetEnvironmentVar(info_t *shellInfo, char *varName);
+int setEnvironmentVar(info_t *shellInfo, char *varName, char *value);
 
 /* file_io_functions.c */
 char *GetFile_History(info_t *information);
@@ -226,7 +226,7 @@ size_t ListLen(const list_t *head);
 char **Listtostrings(list_t *head);
 size_t PrintList(const list_t *head);
 list_t *Nodestartswith(list_t *node, char *prefix, char c);
-ssize_t GetNodeIndex(list_t *head, list_t *node)c;
+ssize_t GetNodeIndex(list_t *head, list_t *node);
 
 /* chain.c */
 int isChainDelimiter(info_t *info, char *buffer,

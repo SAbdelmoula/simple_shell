@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * Bfree - free the pointer and NULL the Address
- * @parameter: Address the pointer to free
+ * Bfree - NULLs the address and releases a pointer
+ * @parameter: address of the free pointer
  * Return: 1 if freed, otherwise 0
  */
 int Bfree(void **parameter)

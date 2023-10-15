@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * GetFile_History - get the history file
- * @information: the structparameter
- * Return: the allocated string of the containg history file
+ * GetFile_History - obtaining the history file
+ * @information: the structure parameter
+ * Return: history file in the allocated string
  */
 
 char *GetFile_History(info_t *information)
@@ -96,7 +96,7 @@ int ReadHistory(info_t *information)
 	info->histcount = linecount;
 	while (info->histcount-- >= HIST_MAX)
 		delete_node_at_index(&(information->history), 0);
-	renumber_history(information);
+	RenumberHistory(information);
 	return (information->histcount);
 }
 

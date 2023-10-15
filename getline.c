@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * BufferInput - Buffer the chained cmd
+ * Buffer_Input - chained commands with buffers
  * @information: parameter structure
- * @buffer: the address of the buffer
- * @Len: the address of the len varriable
- * Return: byte read
+ * @buffer: buffer's address
+ * @Len: the location of the available len
+ * Return: read's byte
  */
-ssize_t BufferInput(info_t *information, char **buffer, size_t *Len)
+ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len)
 {
 	ssize_t n = 0;
 	size_t Len_p = 0;
@@ -50,19 +50,19 @@ ssize_t BufferInput(info_t *information, char **buffer, size_t *Len)
  */
 ssize_t GetInput(info_t *information)
 {
-	static char *buffer; /* the ';' command chain buffer */
+	static char *buffer; /* the ';' cmd buffer chain */
 	static size_t a, k, Len;
 	ssize_t n = 0;
 	char **buffer_p = &(info->arg), *position;
 
 	_putchar(BUF_FLUSH);
-	n = input_buf(information, &buffer, &Len);
-	if (n == -1) /* EOF */
+	n = Buffer_Input(information, &buffer, &Len);
+	if (n == -1)
 		return (-1);
-	if (Len)	/* we have commands left in the chain buffer */
+	if (Len)	/* There are still commands in the chain buffer */
 	{
-		k = a; /* init new iterator to current buf position */
-		position = buffer + a; /* get pointer for return */
+		k = a; /* start a new iterator at the current point of the buf */
+		position = buffer + a; /* obtain the return pointer */
 
 		checkChain(information, buffer, &k, a, Len);
 		while (k < Len) /* iterate to semicolon or end */
@@ -88,7 +88,7 @@ ssize_t GetInput(info_t *information)
 }
 
 /**
- * ReadBuffer - read the buf
+ * ReadBuffer - the buffer be read
  * @information: the parameter sturcture
  * @buffer: buffer
  * @i: size
@@ -107,10 +107,10 @@ ssize_t ReadBuffer(info_t *information, char *buffer, size_t *i)
 }
 
 /**
- * _getline - get the next line of the input from STDIN
+ * _getline - obtains the following line of input from STDIN
  * @information: the parameter structure
- * @ptr: the address of the pointer to buf, preallocated or NULL
- * @length: size of preallocated ptr buf if not NULL
+ * @ptr: address of the buffer's pointer, preallocated space, or NULL
+ * @length: size of preallocat ptr buf if not NULL
  * Return: a
  */
 int _getline(info_t *information, char **ptr, size_t *length)

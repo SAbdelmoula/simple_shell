@@ -6,11 +6,11 @@
  *
  * Return: The environment strings array
  */
-char **getEnvironment(shellInfo_t *shellInfo)
+char **getEnvironment(info_t *shellInfo)
 {
 	if (!shellInfo->environment || shellInfo->envChanged)
 	{
-		shellInfo->environment = listToStrings(shellInfo->envList);
+		shellInfo->environment = Listtostrings(shellInfo->env);
 		shellInfo->envChanged = 0;
 	}
 
@@ -24,9 +24,9 @@ char **getEnvironment(shellInfo_t *shellInfo)
  * @varName: The name of the environment variable to remove
  * Return: 1 if the variable is removed, 0 otherwise
  */
-int unsetEnvironmentVar(shellInfo_t *shellInfo, char *varName)
+int unsetEnvironmentVar(info_t *shellInfo, char *varName)
 {
-	list_t *currentNode = shellInfo->envList;
+	list_t *currentNode = shellInfo->env;
 	size_t index = 0;
 	char *equalsSignPosition;
 
@@ -35,12 +35,12 @@ int unsetEnvironmentVar(shellInfo_t *shellInfo, char *varName)
 
 	while (currentNode)
 	{
-		equalsSignPosition = startsWith(currentNode->str, varName);
+		equalsSignPosition = starts_with(currentNode->str, varName);
 		if (equalsSignPosition && *equalsSignPosition == '=')
 		{
-			shellInfo->envChanged = deleteNodeAtIndex(&(shellInfo->envList), index);
+			shellInfo->envChanged = deleteNodeAtIndex(&(shellInfo->env), index);
 			index = 0;
-			currentNode = shellInfo->envList;
+			currentNode = shellInfo->env;
 			continue;
 		}
 		currentNode = currentNode->next;
@@ -57,7 +57,7 @@ int unsetEnvironmentVar(shellInfo_t *shellInfo, char *varName)
  * @value: The value to set for the environment variable
  * Return: Always 0
  */
-int setEnvironmentVar(shellInfo_t *shellInfo, char *varName, char *value)
+int setEnvironmentVar(info_t *shellInfo, char *varName, char *value)
 {
 	char *envString = NULL;
 	list_t *currentNode;
@@ -72,7 +72,7 @@ int setEnvironmentVar(shellInfo_t *shellInfo, char *varName, char *value)
 	_strcpy(envString, varName);
 	_strcat(envString, "=");
 	_strcat(envString, value);
-	currentNode = shellInfo->envList;
+	currentNode = shellInfo->env;
 	while (currentNode)
 	{
 		equalsSignPosition = startsWith(currentNode->str, varName);

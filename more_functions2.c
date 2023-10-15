@@ -12,7 +12,7 @@ int SHellerratoi(char *s)
 	unsigned long int result = 0;
 
 	if (*s == '+')
-		s++;  /* TODO: why does this make main return 255? */
+		s++;  /* TODO: Why does this cause main to return 255? */
 	for (n = 0;  s[n] != '\0'; n++)
 	{
 		if (s[n] >= '0' && s[n] <= '9')
@@ -47,9 +47,9 @@ void PrintShellerror(info_t *information, char *str)
 }
 
 /**
- * Printfunction_d - print a decimal function (integ) number (base 10)
+ * Printfunction_d - function outputs an integer decimal (base 10) number
  * @input: input
- * @fd: the file descriptor to write to
+ * @fd: writing to the file descriptor
  *
  * Return: the characters number to be printed
  */

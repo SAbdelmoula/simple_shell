@@ -11,15 +11,15 @@
 char *stringwords(char *string, char *delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
-	char **r;
+	char *r;
 
 	if (string == NULL || string[0] == 0)
 		return (NULL);
 	if (!delimeter)
 		delimeter = " ";
 	for (n = 0; string[n] != '\0'; n++)
-		if (!is_delim(string[n], delimeter) && (is_delim(string[n + 1],
-					  delimeter) || !string[n + 1]))
+		if (!isChainDelimiter(string[n], delimeter) &&
+			    (isChainDelimiter(string[n + 1], delimeter) || !string[n + 1]))
 			wordsnumber++;
 
 	if (wordsnumber == 0)
@@ -29,10 +29,10 @@ char *stringwords(char *string, char *delimeter)
 		return (NULL);
 	for (n = 0, a = 0; a < wordsnumber; a++)
 	{
-		while (is_delim(string[n], delimeter))
+		while (isChainDelimiter(string[n], delimeter))
 			n++;
 		z = 0;
-		while (!is_delim(string[n + z], delimeter) && string[n + z])
+		while (!isChainDelimiter(string[n + z], delimeter) && string[n + z])
 			z++;
 		r[a] = malloc((z + 1) * sizeof(char));
 		if (!r[a])
@@ -59,7 +59,7 @@ char *stringwords(char *string, char *delimeter)
 char *string2w(char *string, char delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
-	char **r;
+	char *r;
 
 	if (string == NULL || string[0] == 0)
 		return (NULL);

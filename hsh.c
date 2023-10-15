@@ -13,25 +13,25 @@ int hsh(info_t *information, char **av)
 
 	while (n != -1 && builtin_ret != -2)
 	{
-		clear_info(information);
-		if (interactive(information))
+		clearenv(information);
+		if (Shellnteractive(information))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		n = get_input(information);
+		n = GetInput(information);
 		if (n != -1)
 		{
-			set_info(information, av);
-			builtin_ret = find_builtin(information);
+			SetInformation(information, av);
+			builtin_ret = FindBuiltin(information);
 			if (builtin_ret == -1)
-				find_cmd(information);
+				findcommand(information);
 		}
-		else if (interactive(information))
+		else if (Shellnteractive(information))
 			_putchar('\n');
-		free_info(information, 0);
+		FreeInformation(information, 0);
 	}
-	write_history(information);
-	free_info(information, 1);
-	if (!interactive(information) && info->status)
+	WriteHistory(information);
+	FreeInformation(information, 1);
+	if (!Shellnteractive(information) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
 	{
@@ -58,7 +58,7 @@ int FindBuiltin(info_t *information)
 		{"env", _myenv},
 		{"help", _myhelp},
 		{"history", _myhistory},
-		{"setenv", _mysetenv},
+		{"unsetenv", _mysetenv},
 		{"unsetenv", _myunsetenv},
 		{"cd", _mycd},
 		{"alias", _myalias},
@@ -66,7 +66,7 @@ int FindBuiltin(info_t *information)
 	};
 
 	for (n = 0; builtintbl[n].type; n++)
-		if (_strcmp(info->argv[0], builtintbl[n].type) == 0)
+		if (_strcmp(information->argv[0], builtintbl[n].type) == 0)
 		{
 			info->line_count++;
 			built_in_ret = builtintbl[i].func(information);
@@ -85,33 +85,34 @@ void FindCommand(info_t *information)
 	char *path = NULL;
 	int a, n;
 
-	info->path = info->argv[0];
+	information->path = information->argv[0];
 	if (info->linecount_flag == 1)
 	{
 		info->line_count++;
 		info->linecount_flag = 0;
 	}
 	for (a = 0, n = 0; info->arg[a]; a++)
-		if (!is_delim(info->arg[a], " \t\n"))
+		if (!isChainDelimiter(info->arg[a], " \t\n"))
 			n++;
 	if (!n)
 		return;
 
-	path = find_path(information, _getenv(information, "PATH="), info->argv[0]);
+	path = FindStrpath(information, getEnvironment(information, "PATH="),
+			   info->argv[0]);
 	if (path)
 	{
 		info->path = path;
-		fork_cmd(information);
+		ForkCommand(information);
 	}
 	else
 	{
-		if ((interactive(information) || _getenv(information, "PATH=")
-			|| info->argv[0][0] == '/') && is_cmd(information, info->argv[0]))
-			fork_cmd(information);
+		if ((Shellnteractive(information) || _getenv(information, "PATH=")
+			|| info->argv[0][0] == '/') && IsShellcommand(information, info->argv[0]))
+			ForkCommand(information);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			print_error(information, "not found\n");
+			PrintShellerror(information, "not found\n");
 		}
 	}
 }
@@ -134,9 +135,9 @@ void ForkCommand(info_t *information)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(info->path, info->argv, get_environ(information)) == -1)
+		if (executive(info->path, info->argv, getEnvironment(information)) == -1)
 		{
-			free_info(information, 1);
+			FreeInformation(information, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);

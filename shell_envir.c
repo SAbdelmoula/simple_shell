@@ -1,19 +1,20 @@
 #include "shell.h"
 
 /**
- * printEnvironment - Prints the current environment variables
- * @info: Struct containing potential arguments
+ * printEnvironment - Prints the new environment variables
+ * @info: Arrangement with potential arguments,used to preserve
+ *              the prototype of the constant function
  *
  * Return: Always 0.
  */
 int printEnvironment(info_t *info)
 {
-	print_list_str(info->env);
+	PrintListstructure(info->env);
 	return (0);
 }
 
 /**
- * getEnvironmentVariable - Gets the value of an environment variable
+ * getEnvironmentVariable - Obtains the value of a variable in the envir
  * @info: Struct containing potential arguments
  * @name: The name of the environment variable
  *
@@ -36,8 +37,8 @@ char *getEnvironmentVariable(info_t *info, const char *name)
 }
 
 /**
- * setEnvironmentVariable - Initializes a new environment
- *                    variable or modifies an existing one
+ * setEnvironmentVariable - Create a new environment variable
+ *                    or edit an already existing one
  * @info: Struct containing potential arguments
  *
  * Return: 0 on success, 1 on error
@@ -46,18 +47,18 @@ int setEnvironmentVariable(info_t *info)
 {
 	if (info->argc != 3)
 	{
-		_eputs("Incorrect number of arguments\n");
+		_eputs("Wrong number of arguments\n");
 		return (1);
 	}
 
-	if (_setenv(info, info->argv[1], info->argv[2]))
+	if (setEnvironmentVar(info, info->argv[1], info->argv[2]))
 		return (0);
 
 	return (1);
 }
 
 /**
- * unsetEnvironmentVariable - Removes the environment variable
+ * unsetEnvironmentVariable - Eliminate a setting variable
  * @info: Struct containing potential arguments
  *
  * Return: Always 0
@@ -73,7 +74,7 @@ int unsetEnvironmentVariable(info_t *info)
 	}
 
 	for (n = 1; n < info->argc; n++)
-		_unsetenv(info, info->argv[n]);
+		unsetEnvironmentVar(info, info->argv[n]);
 
 	return (0);
 }

@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * _stringcopy - copy a string
+ * _stringcopy - copy the  string
  * @destination: Destination
  * @source: Source
  *
@@ -59,7 +59,7 @@ void _putstr(char *string)
 		return;
 	while (string[n] != '\0')
 	{
-		_putchar(string[n]);
+		_putchars(string[n]);
 		n++;
 	}
 }
@@ -82,6 +82,6 @@ int _putchars(char c)
 		n = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[n++] = c;
+		buffer[n++] = c;
 	return (1);
 }

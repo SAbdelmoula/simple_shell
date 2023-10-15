@@ -16,7 +16,7 @@ list_t *AddNode(list_t **head, const char *structure, int number)
 	currenthead = malloc(sizeof(list_t));
 	if (!currenthead)
 		return (NULL);
-	_memset((void *)currenthead, 0, sizeof(list_t));
+	_Memset((void *)currenthead, 0, sizeof(list_t));
 	currenthead->number = number;
 	if (structure)
 	{
@@ -50,7 +50,7 @@ list_t *AddNode_End(list_t **head, const char *structure, int number)
 	current_node = malloc(sizeof(list_t));
 	if (!current_node)
 		return (NULL);
-	_memset((void *)current_node, 0, sizeof(list_t));
+	_Memset((void *)current_node, 0, sizeof(list_t));
 	current_node->number = number;
 	if (structure)
 	{

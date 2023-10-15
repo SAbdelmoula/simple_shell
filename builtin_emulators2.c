@@ -72,13 +72,13 @@ int printAlias(list_t *node)
 
 	if (node)
 	{
-		equals = _strchr(node->str, '=');
+		equals = strchr(node->str, '=');
 		for (alias = node->str; alias <= equals; alias++)
-			_putchar(*alias);
+			_putchars(*alias);
 
-		_putchar('\'');
-		_puts(equals + 1);
-		_puts("'\n");
+		_putchars('\'');
+		puts(equals + 1);
+		puts("'\n");
 		return (0);
 	}
 
@@ -102,7 +102,7 @@ int manageAlias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			print_alias(node);
+			printAlias(node);
 			node = node->next;
 		}
 		return (0);
@@ -110,11 +110,11 @@ int manageAlias(info_t *info)
 
 	for (n = 1; info->argv[n]; n++)
 	{
-		equals = _strchr(info->argv[n], '=');
+		equals = strchr(info->argv[n], '=');
 		if (equals)
-			set_alias(info, info->argv[n]);
+			setAlias(info, info->argv[n]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[n], '='));
+		printAlias(Nodestartswith(info->alias, info->argv[n], '='));
 	}
 
 	return (0);

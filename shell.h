@@ -172,9 +172,9 @@ char *string2w(char *string, char delimeter);
 
 
 /* builtin_emulators.c */
-int exitShell(info_t *info);
-int changeDirectory(info_t *info);
-int helpShell(info_t *info);
+int _myexitShell(info_t *info);
+int _changeDirectory(info_t *info);
+int _myshellhelp(info_t *info);
 
 /* builtin_emulators2.c */
 int displayHistory(info_t *info);

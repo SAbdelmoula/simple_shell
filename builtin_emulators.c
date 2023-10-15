@@ -1,38 +1,40 @@
 #include "shell.h"
 
 /**
- * exitShell - Exit the shell with a specified exit status
+ * _myexitShell - Exit the shell with a specified exit status
  * @info: Struct containing potential arguments
  * Return: Exit with the given exit status:
  *         (0) if info->argv[0] != "exit"
  */
-int exitShell(info_t *info)
+int _myexitShell(info_t *info)
 {
-	int exitStatus;
+	int exitstatus;
 
 	if (info->argv[1])
 	{
-		exitStatus = _erratoi(info->argv[1]);
-		if (exitStatus == -1)
+		exitstatus = SHellerratoi(info->argv[1]);
+		if (exitstatus == -1)
 		{
 			info->status = 2;
-			print_error(info, "Illegal number: ");
+			PrintShellerror(info, "Illegal number: ");
 			_eputs(info->argv[1]);
 			_eputchar('\n');
 			return (1);
 		}
-		info->err_num = exitStatus;
+		info->err_num = PrintShellerror(info->argv[1]);
 		return (-2);
 	}
 	info->err_num = -1;
 	return (-2);
 }
+
 /**
- * changeDirectory - Change the current directory of the process
- * @info: Struct containing potential arguments
- * Return: Always 0
+ * _changeDirectory - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
-int changeDirectory(info_t *info)
+int _changeDirectory(info_t *info)
 {
 	char *currentDir, *newDir, buffer[1024];
 	int chdir_ret;
@@ -44,7 +46,8 @@ int changeDirectory(info_t *info)
 	{
 		newDir = _getenv(info, "HOME=");
 		if (!newDir)
-			chdir_ret = chdir((newDir = _getenv(info, "PWD=")) ? newDir : "/");
+			chdir_ret = /* TODO: What ought to this be? */
+				chdir((newDir = _getenv(info, "PWD=")) ? newDir : "/");
 		else
 			chdir_ret = chdir(newDir);
 	}
@@ -56,38 +59,38 @@ int changeDirectory(info_t *info)
 			_putchar('\n');
 			return (1);
 		}
-		_puts(_getenv(info, "OLDPWD="));
-		_putchar('\n');
-		chdir_ret = chdir((newDir = _getenv(info, "OLDPWD=")) ? newDir : "/");
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		chdir_ret = /* TODO: What ought to this be? */
+			chdir((newDir = _getenv(info, "OLDPWD=")) ? newDir : "/");
 	}
 	else
-	{
 		chdir_ret = chdir(info->argv[1]);
-	}
 	if (chdir_ret == -1)
 	{
-		print_error(info, "can't cd to ");
-		_eputs(info->argv[1]);
-		_eputchar('\n');
+		print_error(info, "can't change directory to ");
+		_eputs(info->argv[1]), _eputchar('\n');
+	}
 	else
+	{
 		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
 		_setenv(info, "PWD", getcwd(buffer, 1024));
 	}
 	return (0);
 }
+
 /**
- * helpShell - Display the help message for the shell
- * @info: Struct containing potential arguments
- * Return: always 0
+ * _myshellhelp - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
-int helpShell(info_t *info)
+int _myshellhelp(info_t *info)
 {
 	char **argumentsArray;
 
 	argumentsArray = info->argv;
-	_puts("Help call works. Function not yet implemented\n");
+	_puts("Help call works. Function not yet implemented \n");
 	if (0)
-		_puts(argumentsArray);
-
+		_puts(*argumentsArray); /* att_unused temporary workaround */
 	return (0);
 }

@@ -144,10 +144,10 @@ void FindCommand(info_t *information);
 void ForkCommand(info_t *information);
 
 /* err_string_functions.c */
-void _putsInput(char *structure);
-int EputChar(char c);
-int Putfd(char c, int fd);
-int Putsfd(char *structure, int fd);
+void _eputsInput(char *structure);
+int _eputChars(char c);
+int _putfd(char c, int fd);
+int _putsfd(char *structure, int fd);
 
 /* string_functions.c */
 int StringLength(char *st);
@@ -184,7 +184,8 @@ int printAlias(list_t *node);
 int manageAlias(info_t *info);
 
 /* getline.c */
-ssize_t BufferInput(info_t *information, char **buffer, size_t *Len);
+
+ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len);
 ssize_t GetInput(info_t *information);
 ssize_t ReadBuffer(info_t *information, char *buffer, size_t *i);
 int _getline(info_t *info, char **ptr, size_t *length);

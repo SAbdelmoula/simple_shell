@@ -1,32 +1,32 @@
 #include "shell.h"
 
 /**
- * getEnvironment - Returns a copy of the environment strings array
- * @shellInfo: Struct containing potential arguments
+ * get_environment - returns a duplicate of our envir string array
+ * @info: Arrangement with possible arguments
  *
  * Return: The environment strings array
  */
-char **getEnvironment(info_t *shellInfo)
+char **get_environment(info_t *info)
 {
-	if (!shellInfo->environment || shellInfo->envChanged)
+	if (!info->environment || info->env_changed)
 	{
-		shellInfo->environment = Listtostrings(shellInfo->env);
-		shellInfo->envChanged = 0;
+		info->environment = list_to_strings(info->env);
+		info->env_changed = 0;
 	}
 
-	return (shellInfo->environment);
+	return (info->environment);
 }
 
 /**
- * unsetEnvironmentVar - Remove an environment variable
- * @shellInfo: Struct containing potential arguments
+ * _unsetenvironment - Eliminate a setting variable
+ * @info: Arrangement with possible arguments
  *
  * @varName: The name of the environment variable to remove
  * Return: 1 if the variable is removed, 0 otherwise
  */
-int unsetEnvironmentVar(info_t *shellInfo, char *varName)
+int _unsetenvironment(info_t *info, char *varName)
 {
-	list_t *currentNode = shellInfo->env;
+	list_t *currentNode = info->env;
 	size_t index = 0;
 	char *equalsSignPosition;
 
@@ -38,26 +38,26 @@ int unsetEnvironmentVar(info_t *shellInfo, char *varName)
 		equalsSignPosition = starts_with(currentNode->str, varName);
 		if (equalsSignPosition && *equalsSignPosition == '=')
 		{
-			shellInfo->envChanged = deleteNodeAtIndex(&(shellInfo->env), index);
+			info->env_changed = delete_node_at_index(&(info->env), index);
 			index = 0;
-			currentNode = shellInfo->env;
+			currentNode = info->env;
 			continue;
 		}
 		currentNode = currentNode->next;
 		index++;
 	}
-	return (shellInfo->envChanged);
+	return (info->env_changed);
 }
 
 /**
- * setEnvironmentVar - Initialize a new environment variable
- *                    or modify an existing one
- * @shellInfo: Struct containing potential arguments
+ * _setenvironment - Set up a fresh environment variable,
+ *                    or change a current one
+ * @info: Arrangement with possible arguments
  * @varName: The name of the environment variable
  * @value: The value to set for the environment variable
  * Return: Always 0
  */
-int setEnvironmentVar(info_t *shellInfo, char *varName, char *value)
+int _setenvironment(info_t *info, char *varName, char *value)
 {
 	char *envString = NULL;
 	list_t *currentNode;
@@ -72,21 +72,21 @@ int setEnvironmentVar(info_t *shellInfo, char *varName, char *value)
 	_strcpy(envString, varName);
 	_strcat(envString, "=");
 	_strcat(envString, value);
-	currentNode = shellInfo->env;
+	currentNode = info->env;
 	while (currentNode)
 	{
-		equalsSignPosition = startsWith(currentNode->str, varName);
+		equalsSignPosition = starts_with(currentNode->str, varName);
 		if (equalsSignPosition && *equalsSignPosition == '=')
 		{
 			free(currentNode->str);
 			currentNode->str = envString;
-			shellInfo->envChanged = 1;
+			info->env_changed = 1;
 			return (0);
 		}
 		currentNode = currentNode->next;
 	}
-	addNodeEnd(&(shellInfo->envList), envString, 0);
+	add_node_end(&(info->env), envString, 0);
 	free(envString);
-	shellInfo->envChanged = 1;
+	info->env_changed = 1;
 	return (0);
 }

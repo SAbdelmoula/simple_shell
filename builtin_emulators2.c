@@ -1,84 +1,83 @@
 #include "shell.h"
 
 /**
- * displayHistory - Display the command history list with line number
- * @info: Struct containing potential arguments
- *
- * Return: Always 0
+ * _myhistory - Show the line number-based command history list
+ * @info: Arrangement with possible arguments
+ * Return: always 0
  */
-int displayHistory(info_t *info)
+int _myhistory(info_t *info)
 {
-	PrintList(info->history);
+	print_list(info->history);
 	return (0);
 }
 
 /**
- * unsetAlias - Unsets an alias
- * @info: Parameter structure
+ * unset_alias - puts alias in the string
+ * @info: variable struct
  * @aliasString: The alias string to unset
  *
  * Return: Always 0 on success, 1 on error
  */
-int unsetAlias(info_t *info, char *aliasString)
+int unset_alias(info_t *info, char *aliasString)
 {
 	char *equals, tempChar;
 	int ret;
 
-	equals = strchr(aliasString, '=');
+	equals = _strchr(aliasString, '=');
 	if (!equals)
 		return (1);
 
 	tempChar = *equals;
-	*equals = '\0';
+	*equals = 0;
 
-	ret = DeleteNodeIndex(&(info->alias),
-			GetNodeIndex(info->alias, Nodestartswith(info->alias, aliasString, -1)));
+	ret = delete_node_at_index(&(info->alias),
+		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
 
 	*equals = tempChar;
 	return (ret);
 }
 
 /**
- * setAlias - Set an alias
- * @info: Parameter structure
+ * set_alias - changes alias to a string
+ * @info: variable struct
  * @aliasString: The alias string to set
  *
  * Return: Always 0 on success, 1 on error
  */
-int setAlias(info_t *info, char *aliasString)
+int set_alias(info_t *info, char *aliasString)
 {
 	char *equals;
 
-	equals = strchr(aliasString, '=');
+	equals = _strchr(aliasString, '=');
 	if (!equals)
 		return (1);
 
 	if (!*++equals)
-		return (unsetAlias(info, aliasString));
+		return (unset_alias(info, aliasString));
 
-	unsetAlias(info, aliasString);
-	return (AddNode_End(&(info->alias), aliasString, 0) == NULL);
+	unset_alias(info, aliasString);
+	return (add_node_end(&(info->alias), aliasString, 0) == NULL);
 }
 
 /**
- * printAlias - Prints an alias string
- * @node: The alias node
+ * print_alias - displays a string of alias
+ * @node: an alias node
  *
- * Return: Always 0 on success, 1 on error.
+ * Return: Always 0 on success, 1 on error
  */
-int printAlias(list_t *node)
+int print_alias(list_t *node)
 {
 	char *equals = NULL, *alias = NULL;
 
 	if (node)
 	{
-		equals = strchr(node->str, '=');
+		equals = _strchr(node->str, '=');
 		for (alias = node->str; alias <= equals; alias++)
-			_putchars(*alias);
+			_putchar(*alias);
 
-		_putchars('\'');
-		puts(equals + 1);
-		puts("'\n");
+		_putchar('\'');
+		_puts(equals + 1);
+		_puts("'\n");
 		return (0);
 	}
 
@@ -86,12 +85,12 @@ int printAlias(list_t *node)
 }
 
 /**
- * manageAlias - Manages aliases, listing or setting them
- * @info: Structure containing potential arguments
+ * _myalias - imitates the built-in alias
+ * @info: Arrangement with possible arguments
  *
  * Return: Always 0
  */
-int manageAlias(info_t *info)
+int _myalias(info_t *info)
 {
 	int n = 0;
 	char *equals = NULL;
@@ -102,7 +101,7 @@ int manageAlias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			printAlias(node);
+			print_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -110,11 +109,11 @@ int manageAlias(info_t *info)
 
 	for (n = 1; info->argv[n]; n++)
 	{
-		equals = strchr(info->argv[n], '=');
+		equals = _strchr(info->argv[n], '=');
 		if (equals)
-			setAlias(info, info->argv[n]);
+			set_alias(info, info->argv[n]);
 		else
-		printAlias(Nodestartswith(info->alias, info->argv[n], '='));
+		print_alias(node_starts_with(info->alias, info->argv[n], '='));
 	}
 
 	return (0);

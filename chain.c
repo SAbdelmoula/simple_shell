@@ -1,15 +1,15 @@
 #include "shell.h"
 
 /**
- * isChainDelimiter - Checks if the current character
+ * is_chain - Checks if the current character
  *                 in the buffer is a chain delimiter
- * @info: The parameter structure
- * @buffer: The character buffer
- * @position: Address of the current position in the buffer
+ * @info: structure for the parameter
+ * @buffer: The buffer character
+ * @position: current workplace address in buffer
  *
  * Return: 1 if it's a chain delimiter, 0 otherwise
  */
-int isChainDelimiter(info_t *info, char *buffer, size_t *position)
+int is_chain(info_t *info, char *buffer, size_t *position)
 {
 	size_t index = *position;
 
@@ -25,7 +25,7 @@ int isChainDelimiter(info_t *info, char *buffer, size_t *position)
 		index++;
 		info->cmd_buf_type = CMD_AND;
 	}
-	else if (buffer[index] == ';') /* Found the end of this command */
+	else if (buffer[index] == ';') /* Found the end of this cmd */
 	{
 		buffer[index] = 0; /* Replace semicolon with null */
 		info->cmd_buf_type = CMD_CHAIN;
@@ -38,17 +38,17 @@ int isChainDelimiter(info_t *info, char *buffer, size_t *position)
 }
 
 /**
- * checkChain - Checks whether we should continue chaining
- *              based on the last status
- * @info: The parameter structure
- * @buffer: The character buffer
- * @position: Address of the current position in the buffer
+ * check_chain - Checks whether we should continue chaining
+ *              based on the last check
+ * @info: structure for the parameter
+ * @buffer: buffer character
+ * @position: Address of the new  position in the buffer
  * @startIndex: Starting position in the buffer
  * @length: Length of the buffer
  *
- * Return: Void.
+ * Return: Void
  */
-void checkChain(info_t *info, char *buffer, size_t *position,
+void check_chain(info_t *info, char *buffer, size_t *position,
 		size_t startIndex, size_t length)
 {
 	size_t index = *position;
@@ -74,12 +74,12 @@ void checkChain(info_t *info, char *buffer, size_t *position,
 }
 
 /**
- * replaceAlias - Replaces aliases in the tokenized string
- * @info: The parameter structure
+ * replace_alias - substitutes a tokenized string's aliases
+ * @info: structure for the parameter
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int replaceAlias(info_t *info)
+int replace_alias(info_t *info)
 {
 	int n;
 	list_t *node;
@@ -106,12 +106,12 @@ int replaceAlias(info_t *info)
 }
 
 /**
- * replaceVars - Replaces variables in the tokenized string
- * @info: The parameter structure
+ * replace_vars - alters the tokenized string's variables
+ * @info: structure for the parameter
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int replaceVars(info_t *info)
+int replace_vars(info_t *info)
 {
 	int n = 0;
 	list_t *node;
@@ -135,22 +135,22 @@ int replaceVars(info_t *info)
 		node = node_starts_with(info->env, &info->argv[n][1], '=');
 		if (node)
 		{
-			replace_string(&(info->argv[n]), _strdup(strchr(node->str, '=') + 1));
+			replace_string(&(info->argv[n]), _strdup(_strchr(node->str, '=') + 1));
 			continue;
 		}
-		replace_string(&info->argv[i], _strdup(""));
+		replace_string(&info->argv[n], _strdup(""));
 	}
 	return (0);
 }
 
 /**
- * replaceString - Replace a string
- * @oldString: Address of the old string
- * @newString: New string
+ * replace_string - swap out a string
+ * @oldString: Location of the previous string
+ * @newString: current string
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int replaceString(char **oldString, char *newString)
+int replace_string(char **oldString, char *newString)
 {
 	free(*oldString);
 	*oldString = newString;

@@ -1,26 +1,26 @@
 #include "shell.h"
 
 /**
- * printEnvironment - Prints the new environment variables
+ * _myenvironment - Prints the new environment variables
  * @info: Arrangement with potential arguments,used to preserve
  *              the prototype of the constant function
  *
  * Return: Always 0.
  */
-int printEnvironment(info_t *info)
+int _myenvironment(info_t *info)
 {
-	PrintListstructure(info->env);
+	print_list_str(info->env);
 	return (0);
 }
 
 /**
- * getEnvironmentVariable - Obtains the value of a variable in the envir
+ * _getenvironment - Obtains the value of a variable in the envir
  * @info: Struct containing potential arguments
  * @name: The name of the environment variable
  *
  * Return: The value of the environment variable or NULL if not found
  */
-char *getEnvironmentVariable(info_t *info, const char *name)
+char *_getenvironment(info_t *info, const char *name)
 {
 	list_t *node = info->env;
 	char *i;
@@ -37,13 +37,13 @@ char *getEnvironmentVariable(info_t *info, const char *name)
 }
 
 /**
- * setEnvironmentVariable - Create a new environment variable
+ * _mysetenvironment - Create a new environment variable
  *                    or edit an already existing one
  * @info: Struct containing potential arguments
  *
  * Return: 0 on success, 1 on error
  */
-int setEnvironmentVariable(info_t *info)
+int _mysetenvironment(info_t *info)
 {
 	if (info->argc != 3)
 	{
@@ -51,19 +51,19 @@ int setEnvironmentVariable(info_t *info)
 		return (1);
 	}
 
-	if (setEnvironmentVar(info, info->argv[1], info->argv[2]))
+	if (_setenvironment(info, info->argv[1], info->argv[2]))
 		return (0);
 
 	return (1);
 }
 
 /**
- * unsetEnvironmentVariable - Eliminate a setting variable
+ * _myunsetenvironment - Eliminate a setting variable
  * @info: Struct containing potential arguments
  *
  * Return: Always 0
  */
-int unsetEnvironmentVariable(info_t *info)
+int _myunsetenvironment(info_t *info)
 {
 	int n;
 
@@ -74,18 +74,18 @@ int unsetEnvironmentVariable(info_t *info)
 	}
 
 	for (n = 1; n < info->argc; n++)
-		unsetEnvironmentVar(info, info->argv[n]);
+		_unsetenvironment(info, info->argv[n]);
 
 	return (0);
 }
 
 /**
- * populateEnvironmentList - Populates the environment linked list
+ * populate_environment_List - Populates the environment linked list
  * @info: Struct containing potential arguments
  *
  * Return: Always 0
  */
-int populateEnvironmentList(info_t *info)
+int populate_environment_List(info_t *info)
 {
 	list_t *node = NULL;
 	size_t n;

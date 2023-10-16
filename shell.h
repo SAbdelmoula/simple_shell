@@ -144,10 +144,10 @@ void FindCommand(info_t *information);
 void ForkCommand(info_t *information);
 
 /* err_string_functions.c */
-void _eputsInput(char *structure);
-int _eputChars(char c);
+void _eputs(char *str);
+int _eputChar(char c);
 int _putfd(char c, int fd);
-int _putsfd(char *structure, int fd);
+int _putsfd(char *str, int fd);
 
 /* string_functions.c */
 int StringLength(char *st);
@@ -172,16 +172,16 @@ char *string2w(char *string, char delimeter);
 
 
 /* builtin_emulators.c */
-int _myexitShell(info_t *info);
-int _changeDirectory(info_t *info);
-int _myshellhelp(info_t *info);
+int _myexit(info_t *info);
+int _mycd(info_t *info);
+int _myhelp(info_t *info);
 
 /* builtin_emulators2.c */
-int displayHistory(info_t *info);
-int unsetAlias(info_t *info, char *aliasString);
-int setAlias(info_t *info, char *aliasString);
-int printAlias(list_t *node);
-int manageAlias(info_t *info);
+int _myhistory(info_t *info);
+int unset_alias(info_t *info, char *aliasString);
+int set_alias(info_t *info, char *aliasString);
+int print_alias(list_t *node);
+int _myalias(info_t *info);
 
 /* getline.c */
 
@@ -197,16 +197,16 @@ void SetInformation(info_t *information, char **av);
 void FreeInformation(info_t *information, int all);
 
 /* shell_envir.c */
-int printEnvironment(info_t *info);
-char *getEnvironmentVariable(info_t *info, const char *name);
-int setEnvironmentVariable(info_t *info);
-int unsetEnvironmentVariable(info_t *info);
-int populateEnvironmentList(info_t *info);
+int _myenvironment(info_t *info);
+char *_getenvironment(info_t *info, const char *name);
+int _mysetenvironment(info_t *info);
+int _myunsetenvironment(info_t *info);
+int populate_environment_List(info_t *info);
 
 /* shell_envir2.c */
-char **getEnvironment(info_t *shellInfo);
-int unsetEnvironmentVar(info_t *shellInfo, char *varName);
-int setEnvironmentVar(info_t *shellInfo, char *varName, char *value);
+char **get_environment(info_t *info);
+int _unsetenvironment(info_t *info, char *varName);
+int _setenvironment(info_t *info, char *varName, char *value);
 
 /* file_io_functions.c */
 char *GetFile_History(info_t *information);
@@ -230,12 +230,11 @@ list_t *Nodestartswith(list_t *node, char *prefix, char c);
 ssize_t GetNodeIndex(list_t *head, list_t *node);
 
 /* chain.c */
-int isChainDelimiter(info_t *info, char *buffer,
-	size_t *position);
-void checkChain(info_t *info, char *buffer, size_t *position,
-	size_t startIndex, size_t length);
-int replaceAlias(info_t *info);
-int replaceVars(info_t *info);
-int replaceString(char **oldString, char *newString);
+int is_chain(info_t *info, char *buffer, size_t *position);
+void check_chain(info_t *info, char *buffer, size_t *position,
+                size_t startIndex, size_t length);
+int replace_alias(info_t *info);
+int replace_vars(info_t *info);
+int replace_string(char **oldString, char *newString);
 
 #endif

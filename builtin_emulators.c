@@ -1,27 +1,27 @@
 #include "shell.h"
 
 /**
- * _myexitShell - Exit the shell with a specified exit status
- * @info: Struct containing potential arguments
- * Return: Exit with the given exit status:
+ * _myexit - Exit the shell with a specified exit status
+ * @info: Arrangement with possible arguments
+ * Return: exits with the indicated exit status:
  *         (0) if info->argv[0] != "exit"
  */
-int _myexitShell(info_t *info)
+int _myexit(info_t *info)
 {
 	int exitstatus;
 
 	if (info->argv[1])
 	{
-		exitstatus = SHellerratoi(info->argv[1]);
+		exitstatus = _erratoi(info->argv[1]);
 		if (exitstatus == -1)
 		{
 			info->status = 2;
-			PrintShellerror(info, "Illegal number: ");
+			print_error(info, "Illegal number: ");
 			_eputs(info->argv[1]);
 			_eputchar('\n');
 			return (1);
 		}
-		info->err_num = PrintShellerror(info->argv[1]);
+		info->err_num = _erratoi(info->argv[1]);
 		return (-2);
 	}
 	info->err_num = -1;
@@ -29,12 +29,11 @@ int _myexitShell(info_t *info)
 }
 
 /**
- * _changeDirectory - changes the current directory of the process
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * _mycd - modifies the process's current directory
+ * @info: Arrangement with possible arguments
  *  Return: Always 0
  */
-int _changeDirectory(info_t *info)
+int _mycd(info_t *info)
 {
 	char *currentDir, *newDir, buffer[1024];
 	int chdir_ret;
@@ -79,18 +78,17 @@ int _changeDirectory(info_t *info)
 }
 
 /**
- * _myshellhelp - changes the current directory of the process
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
+ * _myhelp - modifies the process's current directory
+ * @info: Arrangement with possible arguments
  *  Return: Always 0
  */
-int _myshellhelp(info_t *info)
+int _myhelp(info_t *info)
 {
-	char **argumentsArray;
+	char **arg_array;
 
-	argumentsArray = info->argv;
-	_puts("Help call works. Function not yet implemented \n");
+	arg_array = info->argv;
+	_puts("Help call works.not yet implemented function \n");
 	if (0)
-		_puts(*argumentsArray); /* att_unused temporary workaround */
+		_puts(*arg_array); /* att_unused temporary workaround */
 	return (0);
 }

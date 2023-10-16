@@ -209,11 +209,11 @@ int _unsetenvironment(info_t *info, char *varName);
 int _setenvironment(info_t *info, char *varName, char *value);
 
 /* file_io_functions.c */
-char *GetFile_History(info_t *information);
-int WriteHistory(info_t *information);
-int ReadHistory(info_t *information);
-int BuildHistory_List(info_t *information, char *buffer, int Linecount);
-int RenumbershellHistory(info_t *information);
+char *get_history_file(info_t *information);
+int write_history(info_t *information);
+int read_history(info_t *information);
+int build_history_list(info_t *information, char *buffer, int Linecount);
+int renumber_history(info_t *information);
 
 /* liststr.c */
 list_t *AddNode(list_t **head, const char *structure, int number);

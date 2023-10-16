@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * ClearInformation - initialize info_t structure
+ * clear_info - creates the info_t struct.
  * @information: structure the address
  */
 void ClearInformation(info_t *information)

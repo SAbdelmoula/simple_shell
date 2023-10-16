@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * StringLength - back the length of the string
- * @st: string whose length must be checked
+ * _strlen - gives back a string's length
+ * @st: checking the length of the string
  *
- * Return: Integ length of the string
+ * Return: strings with integer length
  */
-int StringLength(char *st)
+int _strlen(char *st)
 {
 	int n = 0;
 
@@ -19,13 +19,13 @@ int StringLength(char *st)
 }
 
 /**
- * StringComparison - execute a lexical comparison of two strings.
+ * _strcmp - compares two strings lexicographically.
  * @st1: 1st stranger
  * @st2: 2nd stranger
  *
  * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
  */
-int StringComparison(char *st1, char *st2)
+int _strcmp(char *st1, char *st2)
 {
 	while (*st1 && *st2)
 	{
@@ -41,13 +41,13 @@ int StringComparison(char *st1, char *st2)
 }
 
 /**
- * startwithHys - test if needle start with haystack
- * @haystack: str to search
- * @needle: substring to find
+ * starts_with - sees whether the haystack comes before the needle
+ * @haystack: searching a string
+ * @needle: the necessary substring to locate
  *
  * Return: address of upcomming char of haystack or NULL
  */
-char *startwithHys(const char *haystack, const char *needle)
+char *starts_with(const char *haystack, const char *needle)
 {
 	while (*needle)
 		if (*needle++ != *haystack++)
@@ -56,13 +56,13 @@ char *startwithHys(const char *haystack, const char *needle)
 }
 
 /**
- * stringSHellConcateat - concatenate 2 strings
- * @destination: the buf destination
- * @source: the buf source
+ * _strcat - attaches two strings together
+ * @destination: the target buffer
+ * @source: the origin buffer
  *
- * Return: pointer to the buf destination
+ * Return: identifier of the final buffer
  */
-char *stringSHellConcateat(char *destination, char *source)
+char *_strcat(char *destination, char *source)
 {
 	char *ret = destination;
 

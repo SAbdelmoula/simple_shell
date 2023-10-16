@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * IsShellcommand - Dictate whether a file is an executable or not
+ * is_command - Dictate whether a file is an executable or not
  * @information: structure the information
  * @path: path to the file
  * Return: 1 if true, 0 otherwise
  */
-int IsShellcommand(info_t *information, char *path)
+int is_command(info_t *information, char *path)
 {
 	struct stat st;
 
@@ -22,13 +22,13 @@ int IsShellcommand(info_t *information, char *path)
 }
 
 /**
- * DuplicateShellchars - the duplicate chars
- * @pathstring: the path string
- * @start: starting the index
- * @stop: stopping the index
- * Return: pointer to the new buf
+ * dup_chars - character duplication
+ * @pathstring: path is a string
+ * @start: initial index
+ * @stop: halting index
+ * Return: identifier of a new buffer
  */
-char *DuplicateShellchars(char *pathstring, int start, int stop)
+char *dup_chars(char *pathstring, int start, int stop)
 {
 	static char buffer[1024];
 	int a = 0, n = 0;
@@ -41,13 +41,13 @@ char *DuplicateShellchars(char *pathstring, int start, int stop)
 }
 
 /**
- * FindStrpath- observe this command in the path of string
- * @information: structure information
- * @pathstring: the path string
- * @command: the cmd to observe
- * Return: full path of command if found or NULL
+ * find_path- observe command in the path string
+ * @information: structure for the information
+ * @pathstring: path a string
+ * @command: the cmd to use
+ * Return: complete path of the cmd, if found, or NULL
  */
-char *FindStrpath(info_t *information, char *pathstring, char *command)
+char *find_path(info_t *information, char *pathstring, char *command)
 {
 	int a = 0, curr_pos = 0;
 	char *path;
@@ -56,7 +56,7 @@ char *FindStrpath(info_t *information, char *pathstring, char *command)
 		return (NULL);
 	if ((_strlen(command) > 2) && starts_with(command, "./"))
 	{
-		if (IsShellcommand(information, command))
+		if (Is_command(information, command))
 			return (command);
 	}
 	while (1)

@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * stringwords - makes word divisions in a string,
+ * *strtow - makes word divisions in a string,
  *             It ignores repeated delimiters
- * @string: string input
- * @delimeter: string delimeter
- * Return: pointer an array of string, or NULL on failure
+ * @string: string all the input
+ * @delimeter: string for delimeter
+ * Return: print an array of string, or NULL on failure
  */
 
-char *stringwords(char *string, char *delimeter)
+char *strtow(char *string, char *delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
 	char *r;
@@ -18,8 +18,8 @@ char *stringwords(char *string, char *delimeter)
 	if (!delimeter)
 		delimeter = " ";
 	for (n = 0; string[n] != '\0'; n++)
-		if (!isChainDelimiter(string[n], delimeter) &&
-			    (isChainDelimiter(string[n + 1], delimeter) || !string[n + 1]))
+		if (!is_delim(string[n], delimeter) &&
+			    (is_delim(string[n + 1], delimeter) || !string[n + 1]))
 			wordsnumber++;
 
 	if (wordsnumber == 0)
@@ -29,10 +29,10 @@ char *stringwords(char *string, char *delimeter)
 		return (NULL);
 	for (n = 0, a = 0; a < wordsnumber; a++)
 	{
-		while (isChainDelimiter(string[n], delimeter))
+		while (is_delim(string[n], delimeter))
 			n++;
 		z = 0;
-		while (!isChainDelimiter(string[n + z], delimeter) && string[n + z])
+		while (!is_delim(string[n + z], delimeter) && string[n + z])
 			z++;
 		r[a] = malloc((z + 1) * sizeof(char));
 		if (!r[a])
@@ -51,12 +51,12 @@ char *stringwords(char *string, char *delimeter)
 }
 
 /**
- * string2w - separates words from a string
+ * *strtow2 - separates words from a string
  * @string: the string input
  * @delimeter: the delimeter
  * Return: pointer an array of string, or NULL on failure
  */
-char *string2w(char *string, char delimeter)
+char *strtow2(char *string, char delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
 	char *r;

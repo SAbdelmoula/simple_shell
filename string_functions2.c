@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * _stringcopy - copy the  string
+ * _strcpy - duplicates a string
  * @destination: Destination
  * @source: Source
  *
  * Return: pointer to destination
  */
-char *_stringcopy(char *destination, char *source)
+char *_strcpy(char *destination, char *source)
 {
 	int n = 0;
 
@@ -23,12 +23,12 @@ char *_stringcopy(char *destination, char *source)
 }
 
 /**
- * _stringduplicate - Duplicate the string
- * @string: string a duplicate
+ * _strdup - Double the string
+ * @string: repicate the string
  *
  * Return: pointer to the duplicated string
  */
-char *_stringduplicate(const char *string)
+char *_strdup(const char *string)
 {
 	int len = 0;
 	char *ret;
@@ -46,12 +46,12 @@ char *_stringduplicate(const char *string)
 }
 
 /**
- *_putstr - pull the string input
- *@string: string to  print
+ *_puts - pull the string input
+ *@string: show string
  *
  * Return: Nothing
  */
-void _putstr(char *string)
+void _puts(char *string)
 {
 	int n = 0;
 
@@ -59,19 +59,19 @@ void _putstr(char *string)
 		return;
 	while (string[n] != '\0')
 	{
-		_putchars(string[n]);
+		_putchar(string[n]);
 		n++;
 	}
 }
 
 /**
- * _putchars - print the character c to stdout
- * @c: The chars to print
+ * _putchar - creates a stdout file with the character C
+ * @c: fill chars
  *
  * Return: On success 1
  * On error, -1 is returned, and errno is set appropriately
  */
-int _putchars(char c)
+int _putchar(char c)
 {
 	static int n;
 	static char buffer[WRITE_BUF_SIZE];

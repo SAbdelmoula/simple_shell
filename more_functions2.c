@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * SHellerratoi - transform a string to an integ
- * @s: string to be transformed
- * Return: 0 if no numbers in string, transformed number otherwise
+ * _erratoi - transform a string into integer
+ * @s: string must be transformed
+ * Return: 0 number transformed if there are no numbers in the string
  *       -1 on error
  */
-int SHellerratoi(char *s)
+int _erratoi(char *s)
 {
 	int n = 0;
 	unsigned long int result = 0;
@@ -29,13 +29,13 @@ int SHellerratoi(char *s)
 }
 
 /**
- * PrintShellerror - pull a message error
- * @information: the parameter & backing information structure
+ * print_error - pull a message error
+ * @information: struct for argument and return information
  * @str: string with the indicated error type
  * Return: 0 if no numbers in string, transformed number otherwise
  *        -1 on error
  */
-void PrintShellerror(info_t *information, char *str)
+void print_error(info_t *information, char *str)
 {
 	_eputs(information->fname);
 	_eputs(": ");
@@ -47,13 +47,13 @@ void PrintShellerror(info_t *information, char *str)
 }
 
 /**
- * Printfunction_d - function outputs an integer decimal (base 10) number
+ * print_d - a decimal (integ) number in base ten is printed by function
  * @input: input
  * @fd: writing to the file descriptor
  *
- * Return: the characters number to be printed
+ * Return: quantity of characters printed
  */
-int Printfunction_d(int input, int fd)
+int print_d(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int n, count = 0;
@@ -86,14 +86,14 @@ int Printfunction_d(int input, int fd)
 }
 
 /**
- * ConvertShellnumber - transfer function, a clone of itoa
+ * convert_number - converter function is an imitation of itoa
  * @number: number
  * @base: base
  * @flags: argument flags
  *
  * Return: string
  */
-char *ConvertShellnumber(long int number, int base, int flags)
+char *convert_number(long int number, int base, int flags)
 {
 	static char *array;
 	static char buffer[50];
@@ -122,12 +122,12 @@ char *ConvertShellnumber(long int number, int base, int flags)
 }
 
 /**
- * RemoveShellcomment -replace 1st function instance of '#' with '\0'
+ * remove_comments -function substitutes "0" for the first occurence of "#"
  * @buffer: address of the modified string
  *
  * Return: Always 0
  */
-void RemoveShellcomment(char *buffer)
+void remove_comments(char *buffer)
 {
 	int n;
 

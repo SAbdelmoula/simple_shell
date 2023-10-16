@@ -1,23 +1,23 @@
 #include "shell.h"
 
 /**
- * Shellnteractive - back to true if the shell is Shellinteractive mode
- * @information: structure address
+ * interactive -displays true if the shell is in interactive mode
+ * @information: structure of the address
  *
- * Return: 1 if interactive mode, 0 otherwise
+ * Return: 1 if interactive mode,otherwise 0
  */
-int Shellnteractive(info_t *information)
+int interactive(info_t *information)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 
 /**
- * Isfunctiondelimeter - test if the char is a delimeter
- * @c: the char to check
- * @delimeter: the delimeter string
+ * is_delim - determines whether a character is a delimeter
+ * @c: the char to verify
+ * @delimeter: string of the delimeter
  * Return: 1 if true, 0 if false
  */
-int Isfunctiondelimeter(char c, char *delimeter)
+int is_delim(char c, char *delimeter)
 {
 	while (*delimeter)
 		if (*delimeter++ == c)
@@ -26,12 +26,12 @@ int Isfunctiondelimeter(char c, char *delimeter)
 }
 
 /**
- *ISfunctionalpha - test the alphabetic char
- *@c: The char to input
- *Return: 1 if c is alphabetic, 0 otherwise
+ * _isalpha - verifies alphabetic characters
+ *@c: character to enter
+ *Return: 1 if c is alphabetic,otherwise 0
  */
 
-int ISfunctionalpha(int c)
+int _isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
@@ -40,12 +40,12 @@ int ISfunctionalpha(int c)
 }
 
 /**
- *SHellatoi - transform a string to an integ
+ *_atoi - transform a string into an integer
  *@s: string to be transformed
  *Return: 0 if no numbers in string, transformed number otherwise
  */
 
-int SHellatoi(char *s)
+int _atoi(char *s)
 {
 	int n, sign = 1, flag = 0, output;
 	unsigned int result = 0;

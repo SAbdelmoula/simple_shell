@@ -80,12 +80,12 @@ int _myunsetenvironment(info_t *info)
 }
 
 /**
- * populate_environment_List - Populates the environment linked list
+ * populate_environment_list - Populates the environment linked list
  * @info: Struct containing potential arguments
  *
  * Return: Always 0
  */
-int populate_environment_List(info_t *info)
+int populate_environment_list(info_t *info)
 {
 	list_t *node = NULL;
 	size_t n;

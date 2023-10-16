@@ -38,39 +38,39 @@ extern char **environ;
 
 
 /**
- * struct liststr - singly linked list
- * @number: the field number
- * @string: a string
- * @next: points to the next node
+ * struct liststr - individual linked list
+ * @num: the numerical field
+ * @str: a string
+ * @next: indicates the following node
  */
 typedef struct liststr
 {
-	int number;
+	int num;
 	char *str;
 	struct liststr *next;
 } list_t;
 
 /**
- *structure passinfo - contains pseudo-arguements to pass into a function,
- *					allowing uniform prototype for function pointer structure
- *@arg: a string generated from getline containing arguements
- *@argv: an array of strings generated from arg
- *@path: a string path for the current command
- *@argc: the argument count
- *@line_count: the error count
- *@err_num: the error code for exit()s
- *@linecount_flag: if on count this line of input
- *@fname: the program filename
- *@env: linked list local copy of environ
- *@environ: custom modified copy of environ from LL env
- *@history: the history node
- *@alias: the alias node
- *@env_changed: on if environ was changed
- *@status: the return status of the last exec'd command
- *@cmd_buf: address of pointer to cmd_buf, on if chaining
+ *struct passinfo - includes fictitious arguments to pass to a function,
+ *					enabling uniform function pointer structure prototype
+ *@arg: a string produced by getline that contains arguments
+ *@argv: a string array created from arg
+ *@path: an array path for the active command
+ *@argc: the number of arguments
+ *@line_count: the number of errors
+ *@err_num: the exit() error code
+ *@linecount_flag: If this input line is counted
+ *@fname: software's filename
+ *@env: local copy of linked list enviroment
+ *@environ: LL env environment updated specifically
+ *@history: historical node
+ *@alias: alias node
+ *@env_changed: if the environment changed
+ *@status: the last executed command's return status
+ *@cmd_buf: address of the cmd_buf pointer, if chaining
  *@cmd_buf_type: CMD_type ||, &&, ;
- *@readfd: the fd from which to read line input
- *@histcount: the history line number count
+ *@readfd: reading line input from the fd
+ *@histcount: the amount of historical lines
  */
 typedef struct passinfo
 {
@@ -100,9 +100,9 @@ typedef struct passinfo
 	0, 0, 0}
 
 /**
- *struct builtin - contains a builtin string and related function
- *@type: the builtin command flag
- *@func: the function
+ *struct builtin - includes an integrated string and related functions
+ *@type: the internal cmd flag
+ *@func: function
  */
 typedef struct builtin
 {
@@ -111,9 +111,9 @@ typedef struct builtin
 } builtin_table;
 
 /* path.c */
-int IsShellcommand(info_t *information, char *path);
-char *DuplicateShellchars(char *pathstring, int start, int stop);
-char *FindStrpath(info_t *information, char *pathstring, char *command);
+int is_command(info_t *information, char *path);
+char *dup_chars(char *pathstring, int start, int stop);
+char *find_path(info_t *information, char *pathstring, char *command);
 
 /* memory_functions */
 char *_memset(char *s, char buf, unsigned int num);
@@ -125,17 +125,17 @@ void *_realloc(void *parameter, unsigned int old_size,
 int bfree(void **parameter);
 
 /* more_functions.c */
-int Shellnteractive(info_t *information);
-int Isfunctiondelimeter(char c, char *delimeter);
-int ISfunctionalpha(int c);
-int SHellatoi(char *s);
+int interactive(info_t *information);
+int is_delim(char c, char *delimeter);
+int _isalpha(int c);
+int _atoi(char *s);
 
 /* more_functions2.c */
-int SHellerratoi(char *s);
-void PrintShellerror(info_t *information, char *str);
-int Printfunction_d(int input, int fd);
-char *ConvertShellnumber(long int number, int base, int flags);
-void RemoveShellcomment(char *buffer);
+int _erratoi(char *s);
+void print_error(info_t *information, char *str);
+int print_d(int input, int fd);
+char *convert_number(long int number, int base, int flags);
+void remove_comment(char *buffer);
 
 /* hsh.c */
 int hsh(info_t *information, char **av);
@@ -144,6 +144,9 @@ void find_command(info_t *information);
 void fork_command(info_t *information);
 void fork_command(info_t *information);
 
+/* loophsh.c */
+int loophsh(char **);
+
 /* err_string_functions.c */
 void _eputs(char *str);
 int _eputChar(char c);
@@ -151,25 +154,25 @@ int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
 
 /* string_functions.c */
-int StringLength(char *st);
-int StringComparison(char *st1, char *st2);
-char *startwithHys(const char *haystack, const char *needle);
-char *stringSHellConcateat(char *destination, char *source);
+int _strlen(char *st);
+int _strcmp(char *st1, char *st2);
+char *starts_with(const char *haystack, const char *needle);
+char *_strcat(char *destination, char *source);
 
 /* string_functions2.c */
-char *_stringcopy(char *destination, char *source);
-char *_stringduplicate(const char *string);
-void _putstr(char *string);
-int _putchars(char c);
+char *_strcpy(char *destination, char *source);
+char *_strdup(const char *string);
+void _puts(char *string);
+int _putchar(char c);
 
 /* string_functions3.c */
-char *_stringcpy(char *destination, char *source, int num);
-char *_stringcat(char *destination, char *source, int num);
-char *_stringchars(char *str, char c);
+char *_strncpy(char *destination, char *source, int num);
+char *_strncat(char *destination, char *source, int num);
+char *_strchr(char *str, char c);
 
 /* string_functions4.c */
-char *stringwords(char *string, char *delimeter);
-char *string2w(char *string, char delimeter);
+char *strtow(char *string, char *delimeter);
+char *strtow2(char *string, char delimeter);
 
 
 /* builtin_emulators.c */
@@ -202,7 +205,7 @@ int _myenvironment(info_t *info);
 char *_getenvironment(info_t *info, const char *name);
 int _mysetenvironment(info_t *info);
 int _myunsetenvironment(info_t *info);
-int populate_environment_List(info_t *info);
+int populate_environment_list(info_t *info);
 
 /* shell_envir2.c */
 char **get_environment(info_t *info);
@@ -233,7 +236,7 @@ ssize_t get_node_index(list_t *head, list_t *node);
 /* chain.c */
 int is_chain(info_t *info, char *buffer, size_t *position);
 void check_chain(info_t *info, char *buffer, size_t *position,
-                size_t startIndex, size_t length);
+size_t startIndex, size_t length);
 int replace_alias(info_t *info);
 int replace_vars(info_t *info);
 int replace_string(char **oldString, char *newString);

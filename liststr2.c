@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * ListLen - specifies the linked list's length
+ * list_len - specifies the linked list's length
  * @head: pointer to the 1st node
  * Return: size of the list
  */
-size_t ListLen(const list_t *head)
+size_t list_len(const list_t *head)
 {
 	size_t n = 0;
 
@@ -18,14 +18,14 @@ size_t ListLen(const list_t *head)
 }
 
 /**
- * Listtostrings - backing an array of strings of  list->structure
+ * list_to_strings - backing a list of strings using the list->str
  * @head: pointer to 1st node
- * Return: an array of strings
+ * Return: method of strings
  */
-char **Listtostrings(list_t *head)
+char **list_to_strings(list_t *head)
 {
 	list_t *node = head;
-	size_t n = ListLen(head), a;
+	size_t n = list_len(head), a;
 	char **structures;
 	char *structure;
 
@@ -40,7 +40,7 @@ char **Listtostrings(list_t *head)
 		if (!structure)
 		{
 			for (a = 0; a < n; a++)
-				free(strs[a]);
+				free(structures[a]);
 			free(structures);
 			return (NULL);
 		}
@@ -54,17 +54,17 @@ char **Listtostrings(list_t *head)
 
 
 /**
- * PrintList - lsit all elements of a list_t linked list
+ * print_list - displays all of a list_t linked list's components
  * @head: pointer to 1st node
  * Return: size the list
  */
-size_t PrintList(const list_t *head)
+size_t print_list(const list_t *head)
 {
 	size_t n = 0;
 
 	while (head)
 	{
-		_puts(ConvertShellnumber(head->num, 10, 0));
+		_puts(convert_number(head->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		_puts(head->structure ? head->structure : "(nil)");
@@ -76,14 +76,14 @@ size_t PrintList(const list_t *head)
 }
 
 /**
- * Nodestartswith - backing node whose string starts with prefix
- * @node: pointer to the list head
- * @prefix: string to the match
- * @c: the next char after prefix to match
+ * node_starts_with - provides a node whose string prefixes
+ * @node: identifier for the list head
+ * @prefix: matching string
+ * @c: the following char to match after prefix
  *
- * Return: match the node or null
+ * Return: either the node or null
  */
-list_t *Nodestartswith(list_t *node, char *prefix, char c)
+list_t *node_starts_with(list_t *node, char *prefix, char c)
 {
 	char *position = NULL;
 
@@ -98,13 +98,13 @@ list_t *Nodestartswith(list_t *node, char *prefix, char c)
 }
 
 /**
- * GetNodeIndex - obtain the index of the node
- * @head: pointer to the head list
- * @node: pointer to the node
+ * get_node_index - obtaining a node's index
+ * @head: list head identifier
+ * @node: identifier for the list head
  *
  * Return: index of node or -1
  */
-ssize_t GetNodeIndex(list_t *head, list_t *node)
+ssize_t get_node_index(list_t *head, list_t *node)
 {
 	size_t n = 0;
 

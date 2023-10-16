@@ -139,9 +139,10 @@ void RemoveShellcomment(char *buffer);
 
 /* hsh.c */
 int hsh(info_t *information, char **av);
-int FindBuiltin(info_t *information);
-void FindCommand(info_t *information);
-void ForkCommand(info_t *information);
+int find_builtin(info_t *information);
+void find_command(info_t *information);
+void fork_command(info_t *information);
+void fork_command(info_t *information);
 
 /* err_string_functions.c */
 void _eputs(char *str);
@@ -223,11 +224,11 @@ int DeleteNodeIndex(list_t **head, unsigned int index);
 void FreeList(list_t **head_parameter);
 
 /* liststr2.c */
-size_t ListLen(const list_t *head);
-char **Listtostrings(list_t *head);
-size_t PrintList(const list_t *head);
-list_t *Nodestartswith(list_t *node, char *prefix, char c);
-ssize_t GetNodeIndex(list_t *head, list_t *node);
+size_t list_len(const list_t *head);
+char **list_to_strings(list_t *head);
+size_t print_list(const list_t *head);
+list_t *node_starts_with(list_t *node, char *prefix, char c);
+ssize_t get_node_index(list_t *head, list_t *node);
 
 /* chain.c */
 int is_chain(info_t *info, char *buffer, size_t *position);

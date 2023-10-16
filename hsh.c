@@ -118,11 +118,11 @@ void find_command(info_t *information)
 }
 
 /**
- * ForkCommand - fork the executive thread to run cmd
- * @information: the parameter & backing to the structure information
+ * fork_command - split the executive thread and execute cmd
+ * @information: the parameter and supporting info  for the struct
  * Return: void
  */
-void ForkCommand(info_t *information)
+void fork_command(info_t *information)
 {
 	pid_t child_pid;
 
@@ -135,9 +135,9 @@ void ForkCommand(info_t *information)
 	}
 	if (child_pid == 0)
 	{
-		if (executive(info->path, info->argv, getEnvironment(information)) == -1)
+		if (execve(info->path, info->argv, get_environment(information)) == -1)
 		{
-			FreeInformation(information, 1);
+			free_information(information, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);

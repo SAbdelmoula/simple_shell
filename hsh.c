@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * hsh - the main shell loop
- * @information: the parameter & backing the structure information
- * @av: the argument vector from main()
- * Return: 0 on success, 1 on error, or error code
+ * hsh - the initial  shell loop
+ * @information: information struct for parameters and returns
+ * @av: the main() argument vector
+ * Return: 0 for success, 1 for error, or error code
  */
 int hsh(info_t *information, char **av)
 {
@@ -13,25 +13,25 @@ int hsh(info_t *information, char **av)
 
 	while (n != -1 && builtin_ret != -2)
 	{
-		clearenv(information);
-		if (Shellnteractive(information))
+		clear_information(information);
+		if (interactive(information))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
-		n = GetInput(information);
+		n = get_input(information);
 		if (n != -1)
 		{
-			SetInformation(information, av);
-			builtin_ret = FindBuiltin(information);
+			set_information(information, av);
+			builtin_ret = find_builtin(information);
 			if (builtin_ret == -1)
-				findcommand(information);
+				find_command(information);
 		}
-		else if (Shellnteractive(information))
+		else if (interactive(information))
 			_putchar('\n');
-		FreeInformation(information, 0);
+		free_nformation(information, 0);
 	}
-	WriteHistory(information);
-	FreeInformation(information, 1);
-	if (!Shellnteractive(information) && info->status)
+	write_history(information);
+	free_information(information, 1);
+	if (!interactive(information) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
 	{
@@ -43,14 +43,14 @@ int hsh(info_t *information, char **av)
 }
 
 /**
- * FindBuiltin - Find the builtin cmd
- * @information: the parameter & backing to the structure information
- * Return: -1 if builtin not found
- *			0 if builtin executed successfully
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
+ * find_builtin - identifies a built-in command
+ * @information: struct for argument and return information
+ * Return: -1 if builtin not appear,
+ *			0 if builtin worked successfully
+ *			1 if builtin found but fail,
+ *			-2 if builtin signals appear()
  */
-int FindBuiltin(info_t *information)
+int find_builtin(info_t *information)
 {
 	int n, built_in_ret = -1;
 	builtin_table builtintbl[] = {
@@ -76,11 +76,11 @@ int FindBuiltin(info_t *information)
 }
 
 /**
- * FindCommand - Find the cmd in the  path
- * @information: the parameter & backing to the structure information
+ * find_command - locates the command along the path
+ * @information: the parameter and supporting info  for the struct
  * Return: void
  */
-void FindCommand(info_t *information)
+void find_command(info_t *information)
 {
 	char *path = NULL;
 	int a, n;
@@ -92,27 +92,27 @@ void FindCommand(info_t *information)
 		info->linecount_flag = 0;
 	}
 	for (a = 0, n = 0; info->arg[a]; a++)
-		if (!isChainDelimiter(info->arg[a], " \t\n"))
+		if (!is_delim(info->arg[a], " \t\n"))
 			n++;
 	if (!n)
 		return;
 
-	path = FindStrpath(information, getEnvironment(information, "PATH="),
+	path = find_path(information, _getenvironment(information, "PATH="),
 			   info->argv[0]);
 	if (path)
 	{
 		info->path = path;
-		ForkCommand(information);
+		fork_command(information);
 	}
 	else
 	{
-		if ((Shellnteractive(information) || _getenv(information, "PATH=")
-			|| info->argv[0][0] == '/') && IsShellcommand(information, info->argv[0]))
-			ForkCommand(information);
+		if ((interactive(information) || _getenvironment(information, "PATH=")
+			|| info->argv[0][0] == '/') && is_cmd(information, info->argv[0]))
+			fork_command(information);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
-			PrintShellerror(information, "not found\n");
+			print_error(information, "not found\n");
 		}
 	}
 }

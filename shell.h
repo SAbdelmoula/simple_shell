@@ -185,16 +185,16 @@ int _myalias(info_t *info);
 
 /* getline.c */
 
-ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len);
-ssize_t GetInput(info_t *information);
-ssize_t ReadBuffer(info_t *information, char *buffer, size_t *i);
-int _getline(info_t *info, char **ptr, size_t *length);
-void Siginthandler(__attribute__((unused))int sig_number);
+ssize_t input_buffer(info_t *information, char **buffer, size_t *Len);
+ssize_t get_input(info_t *information);
+ssize_t read_buffer(info_t *information, char *buffer, size_t *i);
+int _getline(info_t *information, char **ptr, size_t *length);
+void sigintHandler(__attribute__((unused))int sig_number);
 
 /* getinfo.c */
-void ClearInformation(info_t *information);
-void SetInformation(info_t *information, char **av);
-void FreeInformation(info_t *information, int all);
+void clear_information(info_t *information);
+void set_information(info_t *information, char **av);
+void free_information(info_t *information, int all);
 
 /* shell_envir.c */
 int _myenvironment(info_t *info);

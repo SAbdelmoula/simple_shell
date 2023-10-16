@@ -1,13 +1,13 @@
 #include "shell.h"
 
 /**
- * Buffer_Input - chained commands with buffers
- * @information: parameter structure
+ * input_buffer - chained operations using buffers
+ * @information: structure for the parameter
  * @buffer: buffer's address
  * @Len: the location of the available len
  * Return: read's byte
  */
-ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len)
+ssize_t input_buffer(info_t *information, char **buffer, size_t *Len)
 {
 	ssize_t n = 0;
 	size_t Len_p = 0;
@@ -32,7 +32,7 @@ ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len)
 			}
 			information->linecount_flag = 1;
 			remove_comments(*buffer);
-			BuildHistory_List(information, *buffer, information->histcount++);
+			build_history_list(information, *buffer, information->histcount++);
 			/* if (_strchr(*buffer, ';')) is this a command chain? */
 			{
 				*Len = n;
@@ -44,11 +44,11 @@ ssize_t Buffer_Input(info_t *information, char **buffer, size_t *Len)
 }
 
 /**
- * GetInput - get the line minus of the new line
- * @information: the parameter structure
- * Return: byte read
+ * get_input - obtains a queue without the courrent line
+ * @information: structure for the parameter
+ * Return: read byte
  */
-ssize_t GetInput(info_t *information)
+ssize_t get_input(info_t *information)
 {
 	static char *buffer; /* the ';' cmd buffer chain */
 	static size_t a, k, Len;
@@ -56,7 +56,7 @@ ssize_t GetInput(info_t *information)
 	char **buffer_p = &(info->arg), *position;
 
 	_putchar(BUF_FLUSH);
-	n = Buffer_Input(information, &buffer, &Len);
+	n = input_buffer(information, &buffer, &Len);
 	if (n == -1)
 		return (-1);
 	if (Len)	/* There are still commands in the chain buffer */
@@ -64,10 +64,10 @@ ssize_t GetInput(info_t *information)
 		k = a; /* start a new iterator at the current point of the buf */
 		position = buffer + a; /* obtain the return pointer */
 
-		checkChain(information, buffer, &k, a, Len);
+		check_chain(information, buffer, &k, a, Len);
 		while (k < Len) /* iterate to semicolon or end */
 		{
-			if (isChainDelimiter(information, buffer, &k))
+			if (is_chain(information, buffer, &k))
 				break;
 			k++;
 		}
@@ -76,7 +76,7 @@ ssize_t GetInput(info_t *information)
 		if (a >= Len) /* reached end of buffer? */
 		{
 			a = Len = 0; /* reset position and length */
-			info->cmd_buffer_type = CMD_NORM;
+			info->cmd_buf_type = CMD_NORM;
 		}
 
 		*buffer_p = position;
@@ -88,13 +88,13 @@ ssize_t GetInput(info_t *information)
 }
 
 /**
- * ReadBuffer - the buffer be read
- * @information: the parameter sturcture
+ * read_buffer - the buffer to be read
+ * @information: sturcture for the parameter
  * @buffer: buffer
  * @i: size
  * Return: n
  */
-ssize_t ReadBuffer(info_t *information, char *buffer, size_t *i)
+ssize_t read_buffer(info_t *information, char *buffer, size_t *i)
 {
 	ssize_t n = 0;
 
@@ -108,15 +108,15 @@ ssize_t ReadBuffer(info_t *information, char *buffer, size_t *i)
 
 /**
  * _getline - obtains the following line of input from STDIN
- * @information: the parameter structure
- * @ptr: address of the buffer's pointer, preallocated space, or NULL
- * @length: size of preallocat ptr buf if not NULL
+ * @information: structure for the parameter
+ * @ptr: address of a buffer pointer that is preallocated or NULL
+ * @length:if not NULL, size of preallocat pointer buffer
  * Return: a
  */
 int _getline(info_t *information, char **ptr, size_t *length)
 {
 	static char buf[READ_BUF_SIZE];
-	static size_t i, len;
+	static size_t m, len;
 	size_t e;
 	ssize_t n = 0, a = 0;
 	char *position = NULL, *new_p = NULL, *c;
@@ -124,8 +124,8 @@ int _getline(info_t *information, char **ptr, size_t *length)
 	position = *ptr;
 	if (position && length)
 		a = *length;
-	if (i == len)
-		i = len = 0;
+	if (m == len)
+		m = len = 0;
 
 	n = read_buf(info, buffer, &Len);
 	if (n == -1 || (n == 0 && len == 0))
@@ -138,12 +138,12 @@ int _getline(info_t *information, char **ptr, size_t *length)
 		return (position ? free(position), -1 : -1);
 
 	if (a)
-		_strncat(new_position, buffer + i, e - i);
+		_strncat(new_position, buffer + m, e - m);
 	else
-		_strncpy(new_position, buffer + i, e - i + 1);
+		_strncpy(new_position, buffer + m, e - m + 1);
 
-	a += e - i;
-	i = e;
+	a += e - m;
+	m = e;
 	position = new_position;
 
 	if (length)
@@ -153,11 +153,11 @@ int _getline(info_t *information, char **ptr, size_t *length)
 }
 
 /**
- * Siginthandler - block the ctrl-C
- * @sig_number: the signal number
+ * sigintHandler - ctrl-C blocks
+ * @sig_number: the signal digit
  * Return: void
  */
-void Siginthandler(__attribute__((unused))int sig_number)
+void sigintHandler(__attribute__((unused))int sig_number)
 {
 	_puts("\n");
 	_puts("$ ");

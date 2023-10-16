@@ -116,13 +116,13 @@ char *DuplicateShellchars(char *pathstring, int start, int stop);
 char *FindStrpath(info_t *information, char *pathstring, char *command);
 
 /* memory_functions */
-char *_Memset(char *s, char buf, unsigned int num);
-void Ffree(char **pp);
-void *RealLocate(void *parameter, unsigned int old_size,
+char *_memset(char *s, char buf, unsigned int num);
+void ffree(char **pp);
+void *_realloc(void *parameter, unsigned int old_size,
 	 unsigned int current_size);
 
 /* memory_functions2.c */
-int Bfree(void **parameter);
+int bfree(void **parameter);
 
 /* more_functions.c */
 int Shellnteractive(info_t *information);
@@ -217,11 +217,11 @@ int build_history_list(info_t *information, char *buffer, int Linecount);
 int renumber_history(info_t *information);
 
 /* liststr.c */
-list_t *AddNode(list_t **head, const char *structure, int number);
-list_t *AddNode_End(list_t **head, const char *structure, int number);
-size_t PrintListstructure(const list_t *head);
-int DeleteNodeIndex(list_t **head, unsigned int index);
-void FreeList(list_t **head_parameter);
+list_t *add_node(list_t **head, const char *structure, int number);
+list_t *add_node_end(list_t **head, const char *structure, int number);
+size_t print_list_str(const list_t *head);
+int delete_node_at_index(list_t **head, unsigned int index);
+void free_list(list_t **head_parameter);
 
 /* liststr2.c */
 size_t list_len(const list_t *head);

@@ -1,45 +1,45 @@
 #include "shell.h"
 
 /**
- * AddNode - Add the node to the beginning of the list
- * @head: the address pointer to head node
- * @structure: structure the field of the node
- * @number: node index used by history
+ * add_node - brings a node to the list's beginning.
+ * @head: the head node's pointer address
+ * @structure: str field of a node
+ * @number: using history's node index
  * Return: size of the list
  */
-list_t *AddNode(list_t **head, const char *structure, int number)
+list_t *add_node(list_t **head, const char *structure, int number)
 {
-	list_t *currenthead;
+	list_t *current_head;
 
 	if (!head)
 		return (NULL);
-	currenthead = malloc(sizeof(list_t));
-	if (!currenthead)
+	current_head = malloc(sizeof(list_t));
+	if (!current_head)
 		return (NULL);
-	_Memset((void *)currenthead, 0, sizeof(list_t));
-	currenthead->number = number;
+	_memset((void *)current_head, 0, sizeof(list_t));
+	current_head->number = number;
 	if (structure)
 	{
-		currenthead->structure = _strdup(structure);
-		if (!currenthead->structure)
+		current_head->structure = _strdup(structure);
+		if (!current_head->structure)
 		{
-			free(currenthead);
+			free(current_head);
 			return (NULL);
 		}
 	}
-	currenthead->next = *head;
-	*head = currenthead;
-	return (currenthead);
+	current_head->next = *head;
+	*head = current_head;
+	return (current_head);
 }
 
 /**
- * AddNode_End - add the node to the backing of the list
- * @head: the address pointer to head node
- * @structure: structure field of the node
- * @number: node index used by history
+ * add_node_end - adds a node to the list's end
+ * @head: the head node's pointer address
+ * @structure: str field of the node
+ * @number: using history's node index
  * Return: size of the list
  */
-list_t *AddNode_End(list_t **head, const char *structure, int number)
+list_t *add_node_end(list_t **head, const char *structure, int number)
 {
 	list_t *current_node, *node;
 
@@ -50,7 +50,7 @@ list_t *AddNode_End(list_t **head, const char *structure, int number)
 	current_node = malloc(sizeof(list_t));
 	if (!current_node)
 		return (NULL);
-	_Memset((void *)current_node, 0, sizeof(list_t));
+	_memset((void *)current_node, 0, sizeof(list_t));
 	current_node->number = number;
 	if (structure)
 	{
@@ -73,12 +73,11 @@ list_t *AddNode_End(list_t **head, const char *structure, int number)
 }
 
 /**
- * PrintListstructure - Print only the element structure of
- *                     the list_t linked list
- * @head: pointer to the first node
+ * print_list_str - only outputs a list_t linked list's str element
+ * @head: reference to the root node
  * Return: size the list
  */
-size_t PrintListstructure(const list_t *head)
+size_t print_list_str(const list_t *head)
 {
 	size_t a = 0;
 
@@ -93,12 +92,12 @@ size_t PrintListstructure(const list_t *head)
 }
 
 /**
- * DeleteNodeIndex - Delete the node at the given index
- * @head: the address pointer to the first node
- * @index: index of node to delete
+ * delete_node_at_index - removes a node at a specified index
+ * @head: address of the first node's pointer
+ * @index: index of the deleted node
  * Return: 1 on success, 0 on failure
  */
-int DeleteNodeIndex(list_t **head, unsigned int index)
+int delete_node_at_index(list_t **head, unsigned int index)
 {
 	list_t *node, *previous_node;
 	unsigned int a = 0;
@@ -132,11 +131,11 @@ int DeleteNodeIndex(list_t **head, unsigned int index)
 }
 
 /**
- * FreeList - free all the nodes from the list
- * @head_parameter: the address pointer to head node
+ * free_list - releases every node on a list
+ * @head_parameter: address of the head node's pointer
  * Return: void
  */
-void FreeList(list_t **head_parameter)
+void free_list(list_t **head_parameter)
 {
 	list_t *node, *upcoming_node, *head;
 

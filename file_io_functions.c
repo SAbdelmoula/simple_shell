@@ -10,14 +10,14 @@ char *get_history_file(info_t *information)
 {
 	char *buffer, *currentDir;
 
-	currentDir = _getenv(information, "HOME=");
+	currentDir = _getenvironment(information, "HOME=");
 	if (!currentDir)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (_strlen(currentDir)
 				+ _strlen(HIST_FILE) + 2));
 	if (!buffer)
 		return (NULL);
-	buf[0] = 0;
+	buffer[0] = 0;
 	_strcpy(buffer, currentDir);
 	_strcat(buffer, "/");
 	_strcat(buffer, HIST_FILE);
@@ -54,15 +54,15 @@ int write_history(info_t *information)
 
 /**
  * read_history - uses a file to read history
- * @information: structure for the parameter
+ * @info: structure for the parameter
  * Return: histcount on success, 0 otherwise
  */
-int read_history(info_t *information)
+int read_history(info_t *info)
 {
 	int n, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buffer = NULL, *filename = get_history_file(information);
+	char *buffer = NULL, *filename = get_history_file(info);
 
 	if (!filename)
 		return (0);
@@ -95,9 +95,9 @@ int read_history(info_t *information)
 	free(buffer);
 	info->histcount = linecount;
 	while (info->histcount-- >= HIST_MAX)
-		delete_node_at_index(&(information->history), 0);
-	renumber_history(information);
-	return (information->histcount);
+		delete_node_at_index(&(info->history), 0);
+	renumber_history(info);
+	return (info->histcount);
 }
 
 /**

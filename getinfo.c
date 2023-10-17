@@ -2,9 +2,9 @@
 
 /**
  * clear_information - creates the info_t struct
- * @information: structure for the address
+ * @info: structure for the address
  */
-void clear_information(info_t *information)
+void clear_information(info_t *info)
 {
 	info->arg = NULL;
 	info->argv = NULL;
@@ -14,10 +14,10 @@ void clear_information(info_t *information)
 
 /**
  * set_information - establishes the info_t struct
- * @information: structure for the address
+ * @info: structure for the address
  * @av: argument vector
  */
-void set_information(info_t *information, char **av)
+void set_information(info_t *info, char **av)
 {
 	int n = 0;
 
@@ -39,17 +39,17 @@ void set_information(info_t *information, char **av)
 			;
 		info->argc = n;
 
-		replace_alias(information);
-		replace_vars(information);
+		replace_alias(info);
+		replace_vars(info);
 	}
 }
 
 /**
  * free_information - liberates info_t struct fields
- * @information: structure for the address
+ * @info: structure for the address
  * @all: if freeing all fields, then
  */
-void free_information(info_t *information, int all)
+void free_information(info_t *info, int all)
 {
 	ffree(info->argv);
 	info->argv = NULL;

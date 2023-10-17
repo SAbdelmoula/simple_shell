@@ -43,24 +43,24 @@ int _mycd(info_t *info)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
 	if (!info->argv[1])
 	{
-		newDir = _getenv(info, "HOME=");
+		newDir = _getenvironment(info, "HOME=");
 		if (!newDir)
 			chdir_ret = /* TODO: What ought to this be? */
-				chdir((newDir = _getenv(info, "PWD=")) ? newDir : "/");
+				chdir((newDir = _getenvironment(info, "PWD=")) ? newDir : "/");
 		else
 			chdir_ret = chdir(newDir);
 	}
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
-		if (!_getenv(info, "OLDPWD="))
+		if (!_getenvironment(info, "OLDPWD="))
 		{
 			_puts(currentDir);
 			_putchar('\n');
 			return (1);
 		}
-		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		_puts(_getenvironment(info, "OLDPWD=")), _putchar('\n');
 		chdir_ret = /* TODO: What ought to this be? */
-			chdir((newDir = _getenv(info, "OLDPWD=")) ? newDir : "/");
+			chdir((newDir = _getenvironment(info, "OLDPWD=")) ? newDir : "/");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);
@@ -71,8 +71,8 @@ int _mycd(info_t *info)
 	}
 	else
 	{
-		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
-		_setenv(info, "PWD", getcwd(buffer, 1024));
+		_setenvironment(info, "OLDPWD", _getenvironment(info, "PWD="));
+		_setenvironment(info, "PWD", getcwd(buffer, 1024));
 	}
 	return (0);
 }

@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * *strtow - makes word divisions in a string,
+ * **strtow - makes word divisions in a string,
  *             It ignores repeated delimiters
  * @str: string all the input
  * @delimeter: string for delimeter
  * Return: print an array of string, or NULL on failure
  */
 
-char *strtow(char *str, char *delimeter)
+char **strtow(char *str, char *delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
 	char *r;
@@ -51,12 +51,12 @@ char *strtow(char *str, char *delimeter)
 }
 
 /**
- * *strtow2 - separates words from a string
+ * **strtow2 - separates words from a string
  * @str: the string input
  * @delimeter: the delimeter
  * Return: pointer an array of string, or NULL on failure
  */
-char *strtow2(char *str, char delimeter)
+char **strtow2(char *str, char delimeter)
 {
 	int n, a, z, e, wordsnumber = 0;
 	char *r;

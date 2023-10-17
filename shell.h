@@ -149,7 +149,7 @@ int loophsh(char **);
 
 /* err_string_functions.c */
 void _eputs(char *str);
-int _eputChar(char c);
+int _eputchar(char c);
 int _putfd(char c, int fd);
 int _putsfd(char *str, int fd);
 
@@ -171,8 +171,8 @@ char *_strncat(char *destination, char *source, int num);
 char *_strchr(char *st, char c);
 
 /* string_functions4.c */
-char *strtow(char *str, char *delimeter);
-char *strtow2(char *str, char delimeter);
+char **strtow(char *str, char *delimeter);
+char **strtow2(char *str, char delimeter);
 
 
 /* builtin_emulators.c */
@@ -196,9 +196,9 @@ int _getline(info_t *information, char **ptr, size_t *length);
 void sigintHandler(__attribute__((unused))int sig_number);
 
 /* getinfo.c */
-void clear_information(info_t *information);
-void set_information(info_t *information, char **av);
-void free_information(info_t *information, int all);
+void clear_information(info_t *info);
+void set_information(info_t *info, char **av);
+void free_information(info_t *info, int all);
 
 /* shell_envir.c */
 int _myenvironment(info_t *info);
@@ -214,7 +214,7 @@ int _setenvironment(info_t *info, char *varName, char *value);
 
 /* file_io_functions.c */
 char *get_history_file(info_t *information);
-int write_history(info_t *information);
+int write_history(info_t *info);
 int read_history(info_t *information);
 int build_history_list(info_t *information, char *buffer, int Linecount);
 int renumber_history(info_t *information);

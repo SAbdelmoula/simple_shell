@@ -127,14 +127,14 @@ int _getline(info_t *information, char **ptr, size_t *length)
 	if (m == len)
 		m = len = 0;
 
-	n = read_buf(info, buffer, &Len);
+	n = read_buf(infotmation, buf, &len);
 	if (n == -1 || (n == 0 && len == 0))
 		return (-1);
 
-	c = _strchr(buffer + i, '\n');
-	e = c ? 1 + (unsigned int)(c - buffer) : Len;
-	new_position = _realloc(p, a, a ? a + e : e + 1);
-	if (!new_position) /* MALLOC FAILURE! */
+	c = _strchr(buf + n, '\n');
+	e = c ? 1 + (unsigned int)(c - buf) : Len;
+	new_p = _realloc(position, a, a ? a + e : e + 1);
+	if (!new_p) /* MALLOC FAILURE! */
 		return (position ? free(position), -1 : -1);
 
 	if (a)

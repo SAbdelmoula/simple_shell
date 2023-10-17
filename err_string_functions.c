@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- *_eputs - displays a string of input
+ * _eputs - displays a string of input
  * @str: the string to be shown
  * Return: Nothing
  */
@@ -19,11 +19,11 @@ void _eputs(char *str)
 }
 
 /**
- * _eputChar - stderr is updated with the character C
+ * _eputchar - stderr is updated with the character C
  * @c: Printing the character
  * Return: On success 1
  */
-int _eputChar(char c)
+int _eputchar(char c)
 {
 	static int n;
 	static char buffer[WRITE_BUF_SIZE];

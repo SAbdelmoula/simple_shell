@@ -59,16 +59,16 @@ char *_strncat(char *destination, char *source, int num)
 
 /**
  **_strchr - finds a character within a string
- *@str: to be parsed is the string
+ *@st: to be parsed is the string
  *@c: look for char
- *Return: (str) a pointer to the memory area str
+ *Return: (st) a pointer to the memory area str
  */
-char *_strchr(char *str, char c)
+char *_strchr(char *st, char c)
 {
 	do {
-		if (*str == c)
-			return (str);
-	} while (*str++ != '\0');
+		if (*st == c)
+			return (st);
+	} while (*st++ != '\0');
 
 	return (NULL);
 }

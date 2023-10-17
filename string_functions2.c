@@ -24,42 +24,42 @@ char *_strcpy(char *destination, char *source)
 
 /**
  * _strdup - Double the string
- * @string: repicate the string
+ * @str: repicate the string
  *
  * Return: pointer to the duplicated string
  */
-char *_strdup(const char *string)
+char *_strdup(const char *str)
 {
 	int len = 0;
 	char *ret;
 
-	if (string == NULL)
+	if (str == NULL)
 		return (NULL);
-	while (*string++)
+	while (*str++)
 		len++;
 	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
 	for (len++; len--;)
-		ret[len] = *--string;
+		ret[len] = *--str;
 	return (ret);
 }
 
 /**
  *_puts - pull the string input
- *@string: show string
+ *@str: show string
  *
  * Return: Nothing
  */
-void _puts(char *string)
+void _puts(char *str)
 {
 	int n = 0;
 
-	if (!string)
+	if (!str)
 		return;
-	while (string[n] != '\0')
+	while (str[n] != '\0')
 	{
-		_putchar(string[n]);
+		_putchar(str[n]);
 		n++;
 	}
 }

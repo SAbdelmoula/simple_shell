@@ -26,30 +26,30 @@ char **list_to_strings(list_t *head)
 {
 	list_t *node = head;
 	size_t n = list_len(head), a;
-	char **structures;
-	char *structure;
+	char **strs;
+	char *str;
 
 	if (!head || !n)
 		return (NULL);
-	structures = malloc(sizeof(char *) * (n + 1));
-	if (!structures)
+	strs = malloc(sizeof(char *) * (n + 1));
+	if (!strs)
 		return (NULL);
 	for (n = 0; node; node = node->next, n++)
 	{
-		structure = malloc(_strlen(node->structure) + 1);
-		if (!structure)
+		str = malloc(_strlen(node->str) + 1);
+		if (!str)
 		{
 			for (a = 0; a < n; a++)
-				free(structures[a]);
-			free(structures);
+				free(strs[a]);
+			free(strs);
 			return (NULL);
 		}
 
-		structure = _strcpy(structure, node->structure);
-		structures[n] = structure;
+		str = _strcpy(str, node->str);
+		strs[n] = str;
 	}
-	structures[n] = NULL;
-	return (structures);
+	strs[n] = NULL;
+	return (strs);
 }
 
 
@@ -67,7 +67,7 @@ size_t print_list(const list_t *head)
 		_puts(convert_number(head->num, 10, 0));
 		_putchar(':');
 		_putchar(' ');
-		_puts(head->structure ? head->structure : "(nil)");
+		_puts(head->str ? head->str : "(nil)");
 		_puts("\n");
 		head = head->next;
 		n++;
@@ -89,7 +89,7 @@ list_t *node_starts_with(list_t *node, char *prefix, char c)
 
 	while (node)
 	{
-		position = starts_with(node->structure, prefix);
+		position = starts_with(node->str, prefix);
 		if (position && ((c == -1) || (*position == c)))
 			return (node);
 		node = node->next;

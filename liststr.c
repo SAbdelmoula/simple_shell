@@ -3,11 +3,11 @@
 /**
  * add_node - brings a node to the list's beginning.
  * @head: the head node's pointer address
- * @structure: str field of a node
+ * @str: string field of a node
  * @number: using history's node index
  * Return: size of the list
  */
-list_t *add_node(list_t **head, const char *structure, int number)
+list_t *add_node(list_t **head, const char *str, int number)
 {
 	list_t *current_head;
 
@@ -18,10 +18,10 @@ list_t *add_node(list_t **head, const char *structure, int number)
 		return (NULL);
 	_memset((void *)current_head, 0, sizeof(list_t));
 	current_head->number = number;
-	if (structure)
+	if (str)
 	{
-		current_head->structure = _strdup(structure);
-		if (!current_head->structure)
+		current_head->str = _strdup(str);
+		if (!current_head->str)
 		{
 			free(current_head);
 			return (NULL);
@@ -35,11 +35,11 @@ list_t *add_node(list_t **head, const char *structure, int number)
 /**
  * add_node_end - adds a node to the list's end
  * @head: the head node's pointer address
- * @structure: str field of the node
+ * @str: string field of the node
  * @number: using history's node index
  * Return: size of the list
  */
-list_t *add_node_end(list_t **head, const char *structure, int number)
+list_t *add_node_end(list_t **head, const char *str, int number)
 {
 	list_t *current_node, *node;
 
@@ -52,10 +52,10 @@ list_t *add_node_end(list_t **head, const char *structure, int number)
 		return (NULL);
 	_memset((void *)current_node, 0, sizeof(list_t));
 	current_node->number = number;
-	if (structure)
+	if (str)
 	{
-		current_node->structure = _strdup(structure);
-		if (!current_node->structure)
+		current_node->str = _strdup(str);
+		if (!current_node->str)
 		{
 			free(current_node);
 			return (NULL);
@@ -83,7 +83,7 @@ size_t print_list_str(const list_t *head)
 
 	while (head)
 	{
-		_puts(head->structure ? head->structure : "(nil)");
+		_puts(head->str ? head->str : "(nil)");
 		_puts("\n");
 		head = head->next;
 		a++;
@@ -109,7 +109,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 	{
 		node = *head;
 		*head = (*head)->next;
-		free(node->structure);
+		free(node->str);
 		free(node);
 		return (1);
 	}
@@ -119,7 +119,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 		if (a == index)
 		{
 			previous_node->next = node->next;
-			free(node->structure);
+			free(node->str);
 			free(node);
 			return (1);
 		}
@@ -146,7 +146,7 @@ void free_list(list_t **head_parameter)
 	while (node)
 	{
 		upcoming_node = node->next;
-		free(node->structure);
+		free(node->str);
 		free(node);
 		node = upcoming_node;
 	}

@@ -161,18 +161,18 @@ char *_strcat(char *destination, char *source);
 
 /* string_functions2.c */
 char *_strcpy(char *destination, char *source);
-char *_strdup(const char *string);
-void _puts(char *string);
+char *_strdup(const char *str);
+void _puts(char *str);
 int _putchar(char c);
 
 /* string_functions3.c */
 char *_strncpy(char *destination, char *source, int num);
 char *_strncat(char *destination, char *source, int num);
-char *_strchr(char *str, char c);
+char *_strchr(char *st, char c);
 
 /* string_functions4.c */
-char *strtow(char *string, char *delimeter);
-char *strtow2(char *string, char delimeter);
+char *strtow(char *str, char *delimeter);
+char *strtow2(char *str, char delimeter);
 
 
 /* builtin_emulators.c */
@@ -220,8 +220,8 @@ int build_history_list(info_t *information, char *buffer, int Linecount);
 int renumber_history(info_t *information);
 
 /* liststr.c */
-list_t *add_node(list_t **head, const char *structure, int number);
-list_t *add_node_end(list_t **head, const char *structure, int number);
+list_t *add_node(list_t **head, const char *str, int number);
+list_t *add_node_end(list_t **head, const char *str, int number);
 size_t print_list_str(const list_t *head);
 int delete_node_at_index(list_t **head, unsigned int index);
 void free_list(list_t **head_parameter);

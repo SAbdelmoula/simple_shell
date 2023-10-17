@@ -125,7 +125,7 @@ void *_realloc(void *parameter, unsigned int old_size,
 int bfree(void **parameter);
 
 /* more_functions.c */
-int interactive(info_t *information);
+int interactive(info_t *info);
 int is_delim(char c, char *delimeter);
 int _isalpha(int c);
 int _atoi(char *s);
@@ -138,11 +138,11 @@ char *convert_number(long int number, int base, int flags);
 void remove_comments(char *buffer);
 
 /* hsh.c */
-int hsh(info_t *information, char **av);
-int find_builtin(info_t *information);
-void find_command(info_t *information);
-void fork_command(info_t *information);
-void fork_command(info_t *information);
+int hsh(info_t *info, char **av);
+int find_builtin(info_t *info);
+void find_command(info_t *info);
+void fork_command(info_t *info);
+void fork_command(info_t *info);
 
 /* loophsh.c */
 int loophsh(char **);

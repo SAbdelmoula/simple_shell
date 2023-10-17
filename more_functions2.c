@@ -112,13 +112,13 @@ char *convert_number(long int number, int base, int flags)
 	*parameter = '\0';
 
 	do	{
-		*--parmeter = array[i % base];
+		*--parameter = array[i % base];
 		i /= base;
 	} while (i != 0);
 
 	if (sign)
-		*--parmeter = sign;
-	return (parmeter);
+		*--parameter = sign;
+	return (parameter);
 }
 
 /**

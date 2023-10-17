@@ -56,7 +56,7 @@ char *find_path(info_t *information, char *pathstring, char *command)
 		return (NULL);
 	if ((_strlen(command) > 2) && starts_with(command, "./"))
 	{
-		if (Is_command(information, command))
+		if (is_command(information, command))
 			return (command);
 	}
 	while (1)

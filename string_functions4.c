@@ -1,38 +1,36 @@
 #include "shell.h"
 
 /**
- * **strtow - makes word divisions in a string,
- *             It ignores repeated delimiters
- * @str: string all the input
- * @delimeter: string for delimeter
- * Return: print an array of string, or NULL on failure
+ * **strtow - makes word divisions in a string.It ignores repeated delimiters
+ * @str: the text input
+ * @del: string of the delimeter
+ * Return: a pointer to a string array, or NULL on failure
  */
 
-char **strtow(char *str, char *delimeter)
+char **strtow(char *str, char *del)
 {
-	int n, a, z, e, wordsnumber = 0;
-	char *r;
+	int n, a, z, e, countword = 0;
+	char **r;
 
 	if (str == NULL || str[0] == 0)
 		return (NULL);
-	if (!delimeter)
-		delimeter = " ";
+	if (!del)
+		del = " ";
 	for (n = 0; str[n] != '\0'; n++)
-		if (!is_delim(str[n], delimeter) &&
-			    (is_delim(str[n + 1], delimeter) || !str[n + 1]))
-			wordsnumber++;
+		if (!is_delim(str[n], del) && (is_delim(str[n + 1], del) || !str[n + 1]))
+			countword++;
 
-	if (wordsnumber == 0)
+	if (countword == 0)
 		return (NULL);
-	r = malloc((1 + wordsnumber) * sizeof(char *));
+	r = malloc((1 + countword) * sizeof(char *));
 	if (!r)
 		return (NULL);
-	for (n = 0, a = 0; a < wordsnumber; a++)
+	for (n = 0, a = 0; a < countword; a++)
 	{
-		while (is_delim(str[n], delimeter))
+		while (is_delim(str[n], del))
 			n++;
 		z = 0;
-		while (!is_delim(str[n + z], delimeter) && str[n + z])
+		while (!is_delim(str[n + z], del) && str[n + z])
 			z++;
 		r[a] = malloc((z + 1) * sizeof(char));
 		if (!r[a])
@@ -52,33 +50,32 @@ char **strtow(char *str, char *delimeter)
 
 /**
  * **strtow2 - separates words from a string
- * @str: the string input
- * @delimeter: the delimeter
- * Return: pointer an array of string, or NULL on failure
+ * @str: string for the input
+ * @del: the delimeter
+ * Return: a pointer to a string array, or NULL on failure
  */
-char **strtow2(char *str, char delimeter)
+char **strtow2(char *str, char del)
 {
-	int n, a, z, e, wordsnumber = 0;
-	char *r;
+	int n, a, z, e, countword = 0;
+	char **r;
 
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	for (n = 0; str[n] != '\0'; n++)
-		if ((str[n] != delimeter && str[n + 1] == delimeter) ||
-		    (str[n] != delimeter && !str[n + 1]) || str[n + 1] == delimeter)
-			wordsnumber++;
-	if (wordsnumber == 0)
+		if ((str[n] != del && str[n + 1] == del) ||
+		    (str[n] != del && !str[n + 1]) || str[n + 1] == del)
+			countword++;
+	if (countword == 0)
 		return (NULL);
-	r = malloc((1 + wordsnumber) * sizeof(char *));
+	r = malloc((1 + countword) * sizeof(char *));
 	if (!r)
 		return (NULL);
-	for (n = 0, a = 0; a < wordsnumber; a++)
+	for (n = 0, a = 0; a < countword; a++)
 	{
-		while (str[n] == delimeter && str[n] != delimeter)
+		while (str[n] == del && str[n] != del)
 			n++;
 		z = 0;
-		while (str[n + z] != delimeter && str[n + z] &&
-			      str[n + z] != delimeter)
+		while (str[n + z] != del && str[n + z] && str[n + z] != del)
 			z++;
 		r[a] = malloc((z + 1) * sizeof(char));
 		if (!r[a])

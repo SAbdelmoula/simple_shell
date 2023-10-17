@@ -135,7 +135,7 @@ int _erratoi(char *s);
 void print_error(info_t *information, char *str);
 int print_d(int input, int fd);
 char *convert_number(long int number, int base, int flags);
-void remove_comment(char *buffer);
+void remove_comments(char *buffer);
 
 /* hsh.c */
 int hsh(info_t *information, char **av);
@@ -189,10 +189,10 @@ int _myalias(info_t *info);
 
 /* getline.c */
 
-ssize_t input_buffer(info_t *information, char **buffer, size_t *Len);
-ssize_t get_input(info_t *information);
-ssize_t read_buffer(info_t *information, char *buffer, size_t *i);
-int _getline(info_t *information, char **ptr, size_t *length);
+ssize_t input_buffer(info_t *info, char **buffer, size_t *Len);
+ssize_t get_input(info_t *info);
+ssize_t read_buffer(info_t *info, char *buffer, size_t *i);
+int _getline(info_t *info, char **ptr, size_t *length);
 void sigintHandler(__attribute__((unused))int sig_number);
 
 /* getinfo.c */

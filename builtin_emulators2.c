@@ -14,16 +14,16 @@ int _myhistory(info_t *info)
 /**
  * unset_alias - puts alias in the string
  * @info: variable struct
- * @aliasString: The alias string to unset
+ * @str: The alias string to unset
  *
  * Return: Always 0 on success, 1 on error
  */
-int unset_alias(info_t *info, char *aliasString)
+int unset_alias(info_t *info, char *str)
 {
 	char *equals, tempChar;
 	int ret;
 
-	equals = _strchr(aliasString, '=');
+	equals = _strchr(str, '=');
 	if (!equals)
 		return (1);
 

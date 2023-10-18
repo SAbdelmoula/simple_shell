@@ -45,8 +45,7 @@ int _mycd(info_t *info)
 	{
 		newDir = _getenv(info, "HOME=");
 		if (!newDir)
-			chdir_ret = /* TODO: what should this be? */
-				chdir((newDir = _getenv(info, "PWD=")) ? newDir : "/");
+			chdir_ret = chdir((newDir = _getenv(info, "PWD=")) ? newDir : "/");
 		else
 			chdir_ret = chdir((newDir = _getenv(info, "PWD=")) ?
 			 newDir : "/");
@@ -60,8 +59,7 @@ int _mycd(info_t *info)
 			return (1);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
-		chdir_ret = /* TODO: what should this be? */
-			chdir((newDir = _getenv(info, "OLDPWD=")) ? newDir : "/");
+		chdir_ret = chdir((newDir = _getenv(info, "OLDPWD=")) ? newDir : "/");
 	}
 	else
 		chdir_ret = chdir(info->argv[1]);
@@ -90,6 +88,6 @@ int _myhelp(info_t *info)
 	arg_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
 	if (0)
-		_puts(*arg_array); /* temp att_unused workaround */
+		_puts(*arg_array);
 	return (0);
 }

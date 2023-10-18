@@ -18,13 +18,13 @@ char **get_environment(info_t *info)
 }
 
 /**
- * _unsetenvironment - Eliminate a setting variable
+ * _unsetenv - Eliminate a setting variable
  * @info: Arrangement with possible arguments
  *
  * @varName: The name of the environment variable to remove
  * Return: 1 if the variable is removed, 0 otherwise
  */
-int _unsetenvironment(info_t *info, char *varName)
+int _unsetenv(info_t *info, char *varName)
 {
 	list_t *currentNode = info->env;
 	size_t index = 0;
@@ -50,14 +50,14 @@ int _unsetenvironment(info_t *info, char *varName)
 }
 
 /**
- * _setenvironment - Set up a fresh environment variable,
+ * _setenv - Set up a fresh environment variable,
  *                    or change a current one
  * @info: Arrangement with possible arguments
  * @varName: The name of the environment variable
  * @value: The value to set for the environment variable
  * Return: Always 0
  */
-int _setenvironment(info_t *info, char *varName, char *value)
+int _setenv(info_t *info, char *varName, char *value)
 {
 	char *envString = NULL;
 	list_t *currentNode;

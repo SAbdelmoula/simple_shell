@@ -10,7 +10,7 @@ char *get_history_file(info_t *information)
 {
 	char *buffer, *currentDir;
 
-	currentDir = _getenvironment(information, "HOME=");
+	currentDir = _getenv(information, "HOME=");
 	if (!currentDir)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (_strlen(currentDir)

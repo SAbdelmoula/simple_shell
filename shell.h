@@ -201,16 +201,16 @@ void set_information(info_t *info, char **av);
 void free_information(info_t *info, int all);
 
 /* shell_envir.c */
-int _myenvironment(info_t *info);
-char *_getenvironment(info_t *info, const char *name);
-int _mysetenvironment(info_t *info);
-int _myunsetenvironment(info_t *info);
+int _myenv(info_t *info);
+char *_getenv(info_t *info, const char *name);
+int _mysetenv(info_t *info);
+int _myunsetenv(info_t *info);
 int populate_environment_list(info_t *info);
 
 /* shell_envir2.c */
 char **get_environment(info_t *info);
-int _unsetenvironment(info_t *info, char *varName);
-int _setenvironment(info_t *info, char *varName, char *value);
+int _unsetenv(info_t *info, char *varName);
+int _setenv(info_t *info, char *varName, char *value);
 
 /* file_io_functions.c */
 char *get_history_file(info_t *information);

@@ -1,26 +1,26 @@
 #include "shell.h"
 
 /**
- * _myenvironment - Prints the new environment variables
+ * _myenv - Prints the new environment variables
  * @info: Arrangement with potential arguments,used to preserve
  *              the prototype of the constant function
  *
  * Return: Always 0.
  */
-int _myenvironment(info_t *info)
+int _myenv(info_t *info)
 {
 	print_list_str(info->env);
 	return (0);
 }
 
 /**
- * _getenvironment - Obtains the value of a variable in the envir
+ * _getenv - Obtains the value of a variable in the envir
  * @info: Struct containing potential arguments
  * @name: The name of the environment variable
  *
  * Return: The value of the environment variable or NULL if not found
  */
-char *_getenvironment(info_t *info, const char *name)
+char *_getenv(info_t *info, const char *name)
 {
 	list_t *node = info->env;
 	char *i;
@@ -37,13 +37,13 @@ char *_getenvironment(info_t *info, const char *name)
 }
 
 /**
- * _mysetenvironment - Create a new environment variable
+ * _mysetenv - Create a new environment variable
  *                    or edit an already existing one
  * @info: Struct containing potential arguments
  *
  * Return: 0 on success, 1 on error
  */
-int _mysetenvironment(info_t *info)
+int _mysetenv(info_t *info)
 {
 	if (info->argc != 3)
 	{
@@ -51,19 +51,19 @@ int _mysetenvironment(info_t *info)
 		return (1);
 	}
 
-	if (_setenvironment(info, info->argv[1], info->argv[2]))
+	if (_setenv(info, info->argv[1], info->argv[2]))
 		return (0);
 
 	return (1);
 }
 
 /**
- * _myunsetenvironment - Eliminate a setting variable
+ * _myunsetenv - Eliminate a setting variable
  * @info: Struct containing potential arguments
  *
  * Return: Always 0
  */
-int _myunsetenvironment(info_t *info)
+int _myunsetenv(info_t *info)
 {
 	int n;
 
@@ -74,7 +74,7 @@ int _myunsetenvironment(info_t *info)
 	}
 
 	for (n = 1; n < info->argc; n++)
-		_unsetenvironment(info, info->argv[n]);
+		_unsetenv(info, info->argv[n]);
 
 	return (0);
 }

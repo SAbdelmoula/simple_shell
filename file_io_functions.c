@@ -2,15 +2,15 @@
 
 /**
  * get_history_file - obtaining the history file
- * @information: structure for the  parameter
+ * @info: structure for the  parameter
  * Return: history file in the allocated string
  */
 
-char *get_history_file(info_t *information)
+char *get_history_file(info_t *info)
 {
 	char *buffer, *currentDir;
 
-	currentDir = _getenv(information, "HOME=");
+	currentDir = _getenv(info, "HOME=");
 	if (!currentDir)
 		return (NULL);
 	buffer = malloc(sizeof(char) * (_strlen(currentDir)
@@ -26,13 +26,13 @@ char *get_history_file(info_t *information)
 
 /**
  * write_history -make the file to an existing file
- * @information: structure for the parameter
+ * @info: structure for the parameter
  * Return: 1 on success, else -1
  */
-int write_history(info_t *information)
+int write_history(info_t *info)
 {
 	ssize_t fd;
-	char *filename = get_history_file(information);
+	char *filename = get_history_file(info);
 	list_t *node = NULL;
 
 	if (!filename)
@@ -42,7 +42,7 @@ int write_history(info_t *information)
 	free(filename);
 	if (fd == -1)
 		return (-1);
-	for (node = information->history; node; node = node->next)
+	for (node = info->history; node; node = node->next)
 	{
 		_putsfd(node->str, fd);
 		_putfd('\n', fd);
@@ -102,32 +102,32 @@ int read_history(info_t *info)
 
 /**
  * build_history_list - creates a new entry in a history-linked list
- * @information: the structure of the possible arguments
+ * @info: the structure of the possible arguments
  * @buffer: buffer
- * @Linecount: history linecount and history count
+ * @linecount: history linecount and history count
  * Return: Always 0
  */
-int build_history_list(info_t *information, char *buffer, int Linecount)
+int build_history_list(info_t *info, char *buffer, int linecount)
 {
 	list_t *node = NULL;
 
-	if (information->history)
-		node = information->history;
-	add_node_end(&node, buffer, Linecount);
+	if (info->history)
+		node = info->history;
+	add_node_end(&node, buffer, linecount);
 
-	if (!information->history)
-		information->history = node;
+	if (!info->history)
+		info->history = node;
 	return (0);
 }
 
 /**
  * renumber_history - updates the history linked list after changes
- * @information: Building with possible arguments
+ * @info: Building with possible arguments
  * Return: courrent histcount
  */
-int renumber_history(info_t *information)
+int renumber_history(info_t *info)
 {
-	list_t *node = information->history;
+	list_t *node = info->history;
 	int n = 0;
 
 	while (node)
@@ -135,5 +135,5 @@ int renumber_history(info_t *information)
 		node->num = n++;
 		node = node->next;
 	}
-	return (information->histcount = n);
+	return (info->histcount = n);
 }

@@ -213,11 +213,11 @@ int _unsetenv(info_t *info, char *varName);
 int _setenv(info_t *info, char *varName, char *value);
 
 /* file_io_functions.c */
-char *get_history_file(info_t *information);
+char *get_history_file(info_t *info);
 int write_history(info_t *info);
-int read_history(info_t *information);
-int build_history_list(info_t *information, char *buffer, int Linecount);
-int renumber_history(info_t *information);
+int read_history(info_t *info);
+int build_history_list(info_t *info, char *buffer, int linecount);
+int renumber_history(info_t *info);
 
 /* liststr.c */
 list_t *add_node(list_t **head, const char *str, int number);

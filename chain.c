@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * is_chain - Checks if the current character
- *                 in the buffer is a chain delimiter
+ * is_chain - verify if the buffer's current character
+ *                 is a chain delimeter
  * @info: structure for the parameter
  * @buffer: The buffer character
  * @position: current workplace address in buffer
@@ -11,29 +11,29 @@
  */
 int is_chain(info_t *info, char *buffer, size_t *position)
 {
-	size_t index = *position;
+	size_t n = *position;
 
-	if (buffer[index] == '|' && buffer[index + 1] == '|')
+	if (buffer[n] == '|' && buffer[n + 1] == '|')
 	{
-		buffer[index] = 0;
-		index++;
+		buffer[n] = 0;
+		n++;
 		info->cmd_buf_type = CMD_OR;
 	}
-	else if (buffer[index] == '&' && buffer[index + 1] == '&')
+	else if (buffer[n] == '&' && buffer[n + 1] == '&')
 	{
-		buffer[index] = 0;
-		index++;
+		buffer[n] = 0;
+		n++;
 		info->cmd_buf_type = CMD_AND;
 	}
-	else if (buffer[index] == ';') /* Found the end of this cmd */
+	else if (buffer[n] == ';') /* Found the end of this cmd */
 	{
-		buffer[index] = 0; /* Replace semicolon with null */
+		buffer[n] = 0; /* Replace semicolon with null */
 		info->cmd_buf_type = CMD_CHAIN;
 	}
 	else
 		return (0);
 
-	*position = index;
+	*position = n;
 	return (1);
 }
 
@@ -51,14 +51,14 @@ int is_chain(info_t *info, char *buffer, size_t *position)
 void check_chain(info_t *info, char *buffer, size_t *position,
 		size_t startIndex, size_t length)
 {
-	size_t index = *position;
+	size_t n = *position;
 
 	if (info->cmd_buf_type == CMD_AND)
 	{
 		if (info->status)
 		{
 			buffer[startIndex] = 0;
-			index = length;
+			n = length;
 		}
 	}
 	if (info->cmd_buf_type == CMD_OR)
@@ -66,11 +66,11 @@ void check_chain(info_t *info, char *buffer, size_t *position,
 		if (!info->status)
 		{
 			buffer[startIndex] = 0;
-			index = length;
+			n = length;
 		}
 	}
 
-	*position = index;
+	*position = n;
 }
 
 /**

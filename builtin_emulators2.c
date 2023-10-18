@@ -40,23 +40,23 @@ int unset_alias(info_t *info, char *str)
 /**
  * set_alias - changes alias to a string
  * @info: variable struct
- * @aliasString: The alias string to set
+ * @str: The alias string to set
  *
  * Return: Always 0 on success, 1 on error
  */
-int set_alias(info_t *info, char *aliasString)
+int set_alias(info_t *info, char *str)
 {
 	char *equals;
 
-	equals = _strchr(aliasString, '=');
+	equals = _strchr(str, '=');
 	if (!equals)
 		return (1);
 
 	if (!*++equals)
-		return (unset_alias(info, aliasString));
+		return (unset_alias(info, str));
 
-	unset_alias(info, aliasString);
-	return (add_node_end(&(info->alias), aliasString, 0) == NULL);
+	unset_alias(info, str);
+	return (add_node_end(&(info->alias), str, 0) == NULL);
 }
 
 /**

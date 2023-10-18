@@ -30,18 +30,18 @@ int _erratoi(char *s)
 
 /**
  * print_error - pull a message error
- * @information: struct for argument and return information
+ * @info: struct for argument and return information
  * @str: string with the indicated error type
  * Return: 0 if no numbers in string, transformed number otherwise
  *        -1 on error
  */
-void print_error(info_t *information, char *str)
+void print_error(info_t *info, char *str)
 {
-	_eputs(information->fname);
+	_eputs(info->fname);
 	_eputs(": ");
-	print_d(information->line_count, STDERR_FILENO);
+	print_d(info->line_count, STDERR_FILENO);
 	_eputs(": ");
-	_eputs(information->argv[0]);
+	_eputs(info->argv[0]);
 	_eputs(": ");
 	_eputs(str);
 }

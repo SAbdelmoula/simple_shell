@@ -13,24 +13,24 @@ int hsh(info_t *info, char **av)
 
 	while (n != -1 && builtin_ret != -2)
 	{
-		clear_information(info);
+		clear_info(info);
 		if (interactive(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		n = get_input(info);
 		if (n != -1)
 		{
-			set_information(info, av);
+			set_info(info, av);
 			builtin_ret = find_builtin(info);
 			if (builtin_ret == -1)
-				find_command(info);
+				find_cmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		free_information(info, 0);
+		free_info(info, 0);
 	}
 	write_history(info);
-	free_information(info, 1);
+	free_info(info, 1);
 	if (!interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
@@ -76,11 +76,11 @@ int find_builtin(info_t *info)
 }
 
 /**
- * find_command - locates the command along the path
+ * find_cmd - locates the command along the path
  * @info: the parameter and supporting info  for the struct
  * Return: void
  */
-void find_command(info_t *info)
+void find_cmd(info_t *info)
 {
 	char *path = NULL;
 	int a, n;
@@ -102,13 +102,13 @@ void find_command(info_t *info)
 	if (path)
 	{
 		info->path = path;
-		fork_command(info);
+		fork_cmd(info);
 	}
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=")
-			|| info->argv[0][0] == '/') && is_command(info, info->argv[0]))
-			fork_command(info);
+			|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+			fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
 			info->status = 127;
@@ -118,11 +118,11 @@ void find_command(info_t *info)
 }
 
 /**
- * fork_command - split the executive thread and execute cmd
+ * fork_cmd - split the executive thread and execute cmd
  * @info: the parameter and supporting info  for the struct
  * Return: void
  */
-void fork_command(info_t *info)
+void fork_cmd(info_t *info)
 {
 	pid_t child_pid;
 
@@ -137,7 +137,7 @@ void fork_command(info_t *info)
 	{
 		if (execve(info->path, info->argv, get_environment(info)) == -1)
 		{
-			free_information(info, 1);
+			free_info(info, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);

@@ -1,16 +1,16 @@
 #include "shell.h"
 
 /**
- * is_command - Dictate whether a file is an executable or not
- * @information: structure the information
+ * is_cmd - Dictate whether a file is an executable or not
+ * @info: structure the information
  * @path: path to the file
  * Return: 1 if true, 0 otherwise
  */
-int is_command(info_t *information, char *path)
+int is_cmd(info_t *info, char *path)
 {
 	struct stat st;
 
-	(void)information;
+	(void)info;
 	if (!path || stat(path, &st))
 		return (0);
 
@@ -42,12 +42,12 @@ char *dup_chars(char *pathstring, int start, int stop)
 
 /**
  * find_path- observe command in the path string
- * @information: structure for the information
+ * @info: structure for the information
  * @pathstring: path a string
  * @command: the cmd to use
  * Return: complete path of the cmd, if found, or NULL
  */
-char *find_path(info_t *information, char *pathstring, char *command)
+char *find_path(info_t *info, char *pathstring, char *command)
 {
 	int a = 0, curr_pos = 0;
 	char *path;
@@ -56,7 +56,7 @@ char *find_path(info_t *information, char *pathstring, char *command)
 		return (NULL);
 	if ((_strlen(command) > 2) && starts_with(command, "./"))
 	{
-		if (is_command(information, command))
+		if (is_cmd(info, command))
 			return (command);
 	}
 	while (1)
@@ -71,7 +71,7 @@ char *find_path(info_t *information, char *pathstring, char *command)
 				_strcat(path, "/");
 				_strcat(path, command);
 			}
-			if (is_command(information, path))
+			if (is_cmd(info, path))
 				return (path);
 			if (!pathstring[a])
 				break;

@@ -111,9 +111,9 @@ typedef struct builtin
 } builtin_table;
 
 /* path.c */
-int is_command(info_t *information, char *path);
+int is_cmd(info_t *info, char *path);
 char *dup_chars(char *pathstring, int start, int stop);
-char *find_path(info_t *information, char *pathstring, char *command);
+char *find_path(info_t *info, char *pathstring, char *command);
 
 /* memory_functions */
 char *_memset(char *s, char buf, unsigned int num);
@@ -132,7 +132,7 @@ int _atoi(char *s);
 
 /* more_functions2.c */
 int _erratoi(char *s);
-void print_error(info_t *information, char *str);
+void print_error(info_t *info, char *str);
 int print_d(int input, int fd);
 char *convert_number(long int number, int base, int flags);
 void remove_comments(char *buffer);
@@ -140,9 +140,8 @@ void remove_comments(char *buffer);
 /* hsh.c */
 int hsh(info_t *info, char **av);
 int find_builtin(info_t *info);
-void find_command(info_t *info);
-void fork_command(info_t *info);
-void fork_command(info_t *info);
+void find_cmd(info_t *info);
+void fork_cmd(info_t *info);
 
 /* loophsh.c */
 int loophsh(char **);
@@ -189,23 +188,23 @@ int _myalias(info_t *info);
 
 /* getline.c */
 
-ssize_t input_buffer(info_t *info, char **buffer, size_t *Len);
+ssize_t input_buf(info_t *info, char **buffer, size_t *Len);
 ssize_t get_input(info_t *info);
-ssize_t read_buffer(info_t *info, char *buffer, size_t *i);
+ssize_t read_buf(info_t *info, char *buffer, size_t *i);
 int _getline(info_t *info, char **ptr, size_t *length);
 void sigintHandler(__attribute__((unused))int sig_number);
 
 /* getinfo.c */
-void clear_information(info_t *info);
-void set_information(info_t *info, char **av);
-void free_information(info_t *info, int all);
+void clear_info(info_t *info);
+void set_info(info_t *info, char **av);
+void free_info(info_t *info, int all);
 
 /* shell_envir.c */
 int _myenv(info_t *info);
 char *_getenv(info_t *info, const char *name);
 int _mysetenv(info_t *info);
 int _myunsetenv(info_t *info);
-int populate_environment_list(info_t *info);
+int populate_env_list(info_t *info);
 
 /* shell_envir2.c */
 char **get_environment(info_t *info);

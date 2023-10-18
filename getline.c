@@ -1,20 +1,19 @@
 #include "shell.h"
 
 /**
- * input_buffer - chained operations using buffers
+ * input_buf - chained operations using buffers
  * @info: structure for the parameter
  * @buffer: buffer's address
  * @Len: the location of the available len
  * Return: read's byte
  */
-ssize_t input_buffer(info_t *info, char **buffer, size_t *Len)
+ssize_t input_buf(info_t *info, char **buffer, size_t *Len)
 {
 	ssize_t n = 0;
 	size_t Len_p = 0;
 
 	if (!*Len)
 	{
-		/*bfree((void **)information->cmd_buffer);*/
 		free(*buffer);
 		*buffer = NULL;
 		signal(SIGINT, sigintHandler);
@@ -56,7 +55,7 @@ ssize_t get_input(info_t *info)
 	char **buffer_p = &(info->arg), *position;
 
 	_putchar(BUF_FLUSH);
-	n = input_buffer(info, &buffer, &Len);
+	n = input_buf(info, &buffer, &Len);
 	if (n == -1)
 		return (-1);
 	if (Len)	/* There are still commands in the chain buffer */
@@ -88,13 +87,13 @@ ssize_t get_input(info_t *info)
 }
 
 /**
- * read_buffer - the buffer to be read
+ * read_buf - the buffer to be read
  * @info: sturcture for the parameter
  * @buffer: buffer
  * @i: size
  * Return: n
  */
-ssize_t read_buffer(info_t *info, char *buffer, size_t *i)
+ssize_t read_buf(info_t *info, char *buffer, size_t *i)
 {
 	ssize_t n = 0;
 
@@ -127,7 +126,7 @@ int _getline(info_t *info, char **ptr, size_t *length)
 	if (m == len)
 		m = len = 0;
 
-	n = read_buffer(info, buf, &len);
+	n = read_buf(info, buf, &len);
 	if (n == -1 || (n == 0 && len == 0))
 		return (-1);
 
